@@ -16,40 +16,42 @@ if (@$_POST) {
 
 ?>
                 <!--  Servicos -->
-                <div class="span9">
-                    <div class="hero-unit">
-                        <a href="./"><h1>Servi&ccedil;os</h1></a>
+                <div class="col-xs-12 col-sm-10">
+                    <div class="jumbotron">
+                        <a href="./"><h1>Serviços</h1></a>
                         <br />
-                        <?php include("../components/msg.php"); ?>
-                        
+                        <?php echo Message::get(); ?>
+
                         <form enctype="multipart/form-data" action="index.php" method="post">
                             <fieldset>
-                                <div>Nome:
+                                <div>
+                                    <h4>Nome:</h4>
                                     <input type='text'name='name_service' value='' class="form-control" placeholder="Nome" pattern="^[^<>]{0,255}$" required/>
                                 </div>
-                                <div>Descri&ccedil;&atilde;o:
+                                <div>
+                                    <h4>Descrição:</h4>
                                     <textarea name="about_service" class="ckeditor" placeholder="Detalhes" required></textarea>
                                 </div>
                                 <br/>
                                 <div>
-                                    <p>Imagem (.png, .jpeg, .jpg):
-                                    <input name="photo" id="photo" type="file" required/>                                
-                                    </p>
-                                    *Tamanho recomendado: 500x500
+                                    <h4>Imagem (.png, .jpg):</h4>
+                                    <input name="photo" id="photo" type="file" required/>
+                                    <br/>
+                                    *Tamanho recomendado: 200x200
                                 </div>
                                 <br />
-                                <button type="submit" class="btn btn-primary pull-right" >Salvar</button>                                 
+                                <button type="submit" class="btn btn-primary pull-right" >Salvar</button>
                                 <a href='../' class="btn btn-primary pull-right margin">Cancelar</a>
                             </fieldset>
                         </form>
                     </div>
                     <?php include 'table.php'; ?>
                 </div>
-                <!-- // Fim Quemsomos -->
-                                
+                <!-- // Fim Servicos -->
+
             <!-- // Fim Conteudo -->
             </div>
-        <!-- // Fim Corpo --> 
+        <!-- // Fim Corpo -->
         </div>
 
         <!--  Rodape -->

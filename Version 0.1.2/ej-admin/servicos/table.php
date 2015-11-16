@@ -1,12 +1,20 @@
     <?php if ($company->services->size > 0) { ?>
-	    <div class="hero-unit">        
+	    <div class="jumbotron">       
                 <div class="table-responsive">
-                    <table class="table-striped table-condensed tb-custom text-center">
+                    <table class="table table-striped table-condensed tb-custom table-bordered">
                         <thead>
-                            <tr>
-                                <td>Nome</td>
-                                <td>Descrição</td>
-                                <td>Ações</td>
+                            <tr class="bg-info text-center">
+                                <td>
+                                    <strong>Nome</strong>
+                                </td>
+                                <td>
+                                    <strong>Descrição</strong>
+                                </td>
+                                <td style="width: 150px">
+                                    <strong>Ações</strong>
+                                </td>
+                                <!-- Ao mudar o nome dos botoes, precisa mudar o tamanho da coluna que eh fixo pra
+                                    nao quebrar linha dos botoes. -->
                             </tr>
                         </thead>
                         <tbody>
@@ -21,9 +29,7 @@
                                         <?php echo $company->services->service[$i]->about; ?>
                                         
                                     </td>
-                                    <!-- Ao mudar o nome dos botoes, precisa mudar o tamanho da coluna que eh fixo pra
-                                    nao quebrar linha dos botoes. -->                                    
-                                    <td style="min-width: 150px">
+                                    <td>
                                         <a class="btn btn-primary" href="view.php?up=<?php echo $i + 1; ?>">Editar</a>                                        
                                         <a class="btn btn-primary" href="index.php?del=<?php echo $i + 1; ?>">Deletar</a>
                                     </td>

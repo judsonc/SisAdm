@@ -60,7 +60,6 @@ class Bcrypt {
         return crypt($string, $hashString);
     }
 
-
     /**
      * Generate a random base64 encoded salt
      * 

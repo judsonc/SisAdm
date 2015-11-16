@@ -1,31 +1,36 @@
 <?php
 $active = '';
 include '../header.php';
-if($_POST){
+
+if(@$_POST){
     header("Location: index.php?msg=".$user->update());
 }
 
 ?>
-                <!-- Perfil -->
-                <div class="span9">
-                    <div class="hero-unit">
+                <!-- Conta -->
+                <div class="col-xs-12 col-sm-10">
+                    <div class="jumbotron">
                         <a href="./"><h1>Conta</h1></a>
                         <br/>
-                        <?php include("../components/msg.php"); ?>
-                        
+                        <?php echo Message::get(); ?>
+
                         <form action="#" method="post">
                             <fieldset>
-                                <div>Nome:
+                                <div>
+                                    <h4>Nome:</h4>
                                     <input type='text' id='name' name='name_user' value='<?php echo $user->name; ?>' class="form-control" placeholder="Nome" pattern="^(([a-zA-Z ]|[çáéíóúãẽĩõũàèìòùâêîôû]){1,60})$" required/>
                                 </div>
-                                <div>Email:
+                                <div>
+                                    <h4>Email:</h4>
                                     <input type='email' id='mail_job' name='mail_job_user' value='<?php echo $user->mail_job; ?>' class="form-control" placeholder="Email Profissional" required/>
                                 </div>
                                 <hr/>
-                                <div>*Alterar senha:
+                                <div>
+                                    <h4>*Alterar senha:</h4>
                                     <input type='password' id='password1' name='password1_user' class="form-control" placeholder="Nova senha"/>
                                 </div>
-                                <div>*Confirme sua senha:
+                                <div>
+                                    <h4>*Confirme sua senha:</h4>
                                     <input type='password' id='password2' name='password2_user' class="form-control" placeholder="Confirme nova senha"/>
                                 </div>
                                 <br><button type="submit" class="btn btn-primary pull-right" >Salvar</button>
@@ -34,11 +39,11 @@ if($_POST){
                         </form>
                     </div>
                 </div>
-                <!-- // Fim Perfil -->
-            
+                <!-- // Fim Conta -->
+
             <!-- // Fim Conteudo -->
             </div>
-        <!-- // Fim Corpo --> 
+        <!-- // Fim Corpo -->
         </div>
 
         <!--  Rodape -->

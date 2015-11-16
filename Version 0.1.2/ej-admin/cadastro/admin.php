@@ -22,21 +22,23 @@ if (@$_POST) {
 ?>
         <div class="container">
             <div class="row">
-                <div class="span9">
-                    <div class="hero-unit">
+                <div class="col-xs-12 col-sm-10">
+                    <div class="jumbotron">
                         <a href="../"><h1>Logomarca</h1></a>
                         <br/>
-                        <?php include("../components/msg.php"); ?>                    
+                        <?php echo Message::get(); ?>
+
                         <form enctype="multipart/form-data" action="admin.php" method="post">
                             <fieldset>
-                                <div>Nome:
-                                    <input type='text' name='name_corporation' class="form-control" value="<?php echo @$company->getName(); ?>" placeholder="Digite o Nome do Site" required/> 
+                                <div>
+                                    <h4>Nome:</h4>
+                                    <input type='text' name='name_corporation' class="form-control" value="<?php echo @$company->getName(); ?>" placeholder="Digite o Nome do Site" required/>
                                 </div>
                                 <br/>
                                 <div>
-                                    <p>Imagem (.png, .jpeg, .jpg, .svg):           
-                                    <input name="photo" id="photo" type="file" required/>                                
-                                    </p>
+                                    <h4>Imagem (.png, .jpeg, .jpg, .svg):</h4>
+                                    <input name="photo" id="photo" type="file" required/>
+                                    <br/>
                                     *Tamanho recomendado: 1280x720
                                 </div>
                                 <hr/>
@@ -50,10 +52,9 @@ if (@$_POST) {
                         </form>
                     </div>
                 </div>
-                <!-- // Fim Banner -->
             <!-- // Fim Conteudo -->
             </div>
-            <!-- // Fim Corpo --> 
+            <!-- // Fim Corpo -->
         </div>
     </body>
 </html>

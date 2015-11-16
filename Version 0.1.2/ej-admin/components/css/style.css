@@ -1,0 +1,145 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-width: 400px;
+}
+
+.row {
+    margin-top: 90px;
+}
+
+.width-full, img, input {
+    width: 100% !important;
+}
+
+.alert {
+	text-align: center;
+}
+/*  --- Menu esquerdo ---  */
+.list-group {
+    position: fixed;
+    width: 142px;
+    box-shadow: 0px 4px 10px -1px rgba(180, 180, 180, 0.9);
+}
+
+.list-group-item {
+    background-color: #F5F5F5;
+    line-height: 25px;
+}
+
+.list-group-item:focus,
+.list-group-item:active,
+.list-group-item:hover, 
+.list-group-item.selected {
+    font-weight: bold;
+    font-size: 17px;
+}
+/*  ---  // Fim Menu esquerdo  ---  */
+
+/*  ---  Menu Direito  ---  */
+.dropdown-menu {
+    min-width: 120px;
+}
+
+.dropdown-menu > hr {
+    margin: 10px 0px;
+}
+/*  ---  // Fim Menu Direito  ---  */
+
+/*  ---  Corpo-Conteudo  ---  */
+.jumbotron {
+    padding: 20px;
+    border-radius: 0 !important;
+    -webkit-box-shadow: rgba(180,180,180,0.9) 0 4px 10px -1px;
+    box-shadow: rgba(180,180,180,0.9) 0 4px 10px -1px;
+    margin-left: 25px;
+}
+
+.jumbotron p {
+    font-size: 14px;
+}
+
+.jumbotron > a {
+    color: #333;    
+}
+
+.jumbotron > a:focus, .jumbotron > a:hover {
+    color: #909090;
+    text-decoration: none;
+}
+
+button.btn.btn-primary.pull-right { // Margin entre os botoes Salvar e Cancelar
+    position: relative;
+    margin: 0 0 5px 5px;
+}
+/*  --- // Fim Corpo-Conteudo  ---  */
+
+/*  --- Rodape  ---  */
+.footer {
+/*    padding: 20px 0px;
+    background-color: #222;
+    right: 0%;
+    left: 0;*/
+}
+
+.footer > p {
+    color: #FEFAFA;
+}
+
+.footer p a {
+    text-decoration: none;
+    color: #FFF;
+}
+/*  --- // Fim Rodape  ---  */
+
+/*  --- Tela de Login  ---  */
+.well {
+    margin-top: 50px;
+    background-color: #BBB;
+    border-radius: 0px;
+    text-align: right;
+    
+}
+
+.formulario > form {
+    margin: 20px 0px;
+}
+
+.formulario {
+    margin-right: auto !important;
+    margin-left: auto !important;
+    max-width: 340px;
+    float: none;
+}
+
+.col-md-4.formulario.well {
+    -webkit-box-shadow: rgba(180,180,180,0.9) 0 4px 10px -1px;
+    box-shadow: rgba(180,180,180,0.9) 0 4px 10px -1px;
+}
+
+.form-control {
+    border: 1px solid #CCC;
+    padding: 5px 12px;
+    border-radius: 0%;
+    margin: 5px 0px;
+    width: 100%;
+}
+
+.btn-login {
+    width: 30%;
+    height: 30px;
+    padding: 2px;
+    background-color: #FBFBFB;
+    border: 1px solid transparent;
+}
+
+.btn-login:focus, .btn-login:active, .btn-login:hover{
+    background-color: #F88;
+}
+
+a.pull-left {
+    color: #FFF;
+}
+/*  --- // Fim Tela de Login  ---  */

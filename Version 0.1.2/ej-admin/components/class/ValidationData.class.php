@@ -2,12 +2,24 @@
 
 class ValidationData {
 
+    /*
+     * Function get()
+     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     * param void
+     * return object
+     */
     public static function img($ext) {
         // Verifica se a extensão é de um dos tipo do array, return boolean;
         $image = array('jpg', 'png', 'gif', 'jpeg', 'svg', 'JPG', 'PNG', 'GIF', 'JPEG', 'SVG');
         return in_array($ext, $image);
     }
 
+    /*
+     * Function get()
+     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     * param void
+     * return object
+     */
     public static function cpf($cpf) {
         // Verifica se um número foi informado
         if (empty($cpf)) {
@@ -53,6 +65,12 @@ class ValidationData {
         }
     }
 
+    /*
+     * Function get()
+     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     * param void
+     * return object
+     */
     public static function date($date) {
         if (preg_match("/^\d{1,2}\/\d{1,2}\/\d{4}$/", $date)) {
             //echo "ok";
@@ -63,6 +81,12 @@ class ValidationData {
         }
     }
 
+    /*
+     * Function get()
+     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     * param void
+     * return object
+     */
     public static function mail($mail) {
         if (preg_match("/^([\w\-]+\.)*[\w\- ]+@([\w\- ]+\.)+([\w\-]{2,3})$/", $mail)) {
             //echo "ok";
@@ -73,6 +97,12 @@ class ValidationData {
         }
     }
 
+    /*
+     * Function get()
+     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     * param void
+     * return object
+     */
     public static function password($pass) {
         if (preg_match("/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $pass)) {
             //echo "ok";
@@ -83,6 +113,12 @@ class ValidationData {
         }
     }
 
+    /*
+     * Function get()
+     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     * param void
+     * return object
+     */
     public static function username($user) {
         if (preg_match("/^[a-zA-Z0-9_.-]{3,16}$/", $user)) {
             //echo "ok";
@@ -93,6 +129,12 @@ class ValidationData {
         }
     }
 
+    /*
+     * Function get()
+     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     * param void
+     * return object
+     */
     public static function phone($phone) {
         if (preg_match("/^(\+[0-9][0-9]) (\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})$/", $phone)) {
             return true;
@@ -101,6 +143,12 @@ class ValidationData {
         }
     }
 
+    /*
+     * Function get()
+     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     * param void
+     * return object
+     */
     public static function cep($cep) {
         if (preg_match("/^[0-9]{5}-[0-9]{3}$/", $cep)) {
             return true;
@@ -109,6 +157,12 @@ class ValidationData {
         }
     }
 
+    /*
+     * Function get()
+     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     * param void
+     * return object
+     */
     public static function name($name) {
         if (preg_match("/^(([a-zA-Z ]|[çáéíóúãẽĩõũàèìòùâêîôû]){1,60})$/", $name)) {
             return true;
@@ -116,13 +170,18 @@ class ValidationData {
             return false;
         }
     }
-    
-    public static function text($text){
-        if (preg_match("/^[^<>]{0,255}$/", $text)){
+
+    /*
+     * Function get()
+     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     * param void
+     * return object
+     */
+    public static function text($text) {
+        if (preg_match("/^[^<>]{0,255}$/", $text)) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
-
 }

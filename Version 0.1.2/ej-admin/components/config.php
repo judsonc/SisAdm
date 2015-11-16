@@ -1,13 +1,10 @@
 <?php
-
 date_default_timezone_set('America/Sao_Paulo'); 
-/*$datetime = date("Y-m-d H:i:s");
-$datenow = date("Y-m-d");
-$ip = $_SERVER['REMOTE_ADDR']; */
 
 // ------  Incluindo as Classes  ------
 include_once ("class/User.class.php");
 include_once ("class/Corporation.class.php");
+include_once ("class/Message.class.php");
 
 // ------  Instanciando as Classes  ------
 $user    = new User();
@@ -31,7 +28,7 @@ if (!isset($no_need_login) || !$no_need_login) {
         se nao ele renova o tempo e ai eh contado mais o tempo limite */
         if($segundos > $limite){
             session_destroy();
-            echo "<script>alert('Sua sess„o expirou, favor logar novamente!')</script>";    //popup de aviso
+            echo "<script>alert('Sua sess√£o expirou, favor logar novamente!')</script>";    //popup de aviso
             echo "<script>location.reload()</script>";  // atualiza para que seja redirecionado para a pagina de login
             die();  //destroi pagina para que nao carregue
         }else{

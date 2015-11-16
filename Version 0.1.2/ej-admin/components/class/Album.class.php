@@ -10,7 +10,7 @@ class Album {
         $this->name = $name;
         $this->get();
     }
-    
+
     /*
      * Function get()
      *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
@@ -25,7 +25,7 @@ class Album {
             $this->photo[$i] = new Photo();
             $this->photo[$i]->setId($results['FOTO_ID']);
             $this->photo[$i]->setId_adm($results['FOTO_ID_ADM']);
-            foreach ($results as $key => $value){
+            foreach ($results as $key => $value) {
                 $results[$key] = Criptografia::BASE64($value, 0);
             }
             $this->photo[$i]->log = $results['FOTO_LOG'];
@@ -33,13 +33,13 @@ class Album {
             $this->photo[$i]->name = $results['FOTO_NOME'];
             $this->photo[$i]->albumName = $results['FOTO_NOME_ALBUM'];
             $this->photo[$i]->url = $results['FOTO_URL'];
-            
+
             $i++;
         }
         $this->size = $i;
         return $this;
     }
-    
+
     /*
      * Function delete()
      *      Insere no banco uma nova foto, sendo o endereço novo ou o passado como parametro
@@ -47,12 +47,12 @@ class Album {
      * return int
      */
     public function delete() {
-        for ($i = 0; $i < $this->size; $i++){
+        for ($i = 0; $i < $this->size; $i++) {
             $this->photo[$i]->delete();
         }
         return 10;
     }
-    
+
     /*
      * Function addPhoto()
      *      Insere no banco uma nova foto, sendo o endereço novo ou o passado como parametro
@@ -60,16 +60,16 @@ class Album {
      * return int
      */
     public function addPhoto($id_adm) {
-		$path = "/ej-admin"; // Diretório da index
-		$server = "http://".$_SERVER['HTTP_HOST'].$path; // http://angulartopografia.com.br/ej-admin
+        $path = "/ej-admin"; // Diretório da index
+        $server = "http://" . $_SERVER['HTTP_HOST'] . $path; // http://angulartopografia.com.br/ej-admin
 
         $name = Photo::getSendName();       /* Guarda diretorio com novo nome e envia a imagem  */
-        if (is_int($name)) {    /* Verificando se eh o nome da imagem ou a mensagem de erro (inteiro)   */
-             return $name;
+        if (is_int($name)) { /* Verificando se eh o nome da imagem ou a mensagem de erro (inteiro)   */
+            return $name;
         } else {
             $morephoto = new Photo();
-            $morephoto->albumName = $this->name;            
-            return $morephoto->set($id_adm, $server.$name);
-        }        
+            $morephoto->albumName = $this->name;
+            return $morephoto->set($id_adm, $server . $name);
+        }
     }
 }

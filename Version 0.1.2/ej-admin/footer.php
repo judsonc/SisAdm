@@ -1,5 +1,5 @@
-<!--     <footer class="footer">
-            <div class="container">
+     <footer class="footer">
+<!--            <div class="container">
                 <p class="pull-right"><a href="#">Voltar ao topo</a></p>
                 <p> <?php echo $company->getName(); ?> | Desenvolvido por <a href="http://www.ejectufrn.com.br" target="_blank">EJECT</a>.</p>
 
@@ -12,7 +12,7 @@
                   <li><a href="https://github.com/twitter/bootstrap/wiki">Roadmap e changelog</a></li>
                 </ul>
                             // Links Rodape --
-            </div>
+            </div-->
         </footer>
         <!-- //Fim Rodape -->
     </body>
@@ -23,7 +23,7 @@
     unset($company);
 
 /*	<script src="components/js/google-code-prettify/prettify.js"></script>
-        <script src="<?php echo $server; ?>/components/js/bootstrap-dropdown.js"></script>
+        <script src="components/js/bootstrap-dropdown.js"></script>
         <script src="components/js/bootstrap-transition.js"></script>
         <script src="components/js/bootstrap-alert.js"></script>
         <script src="components/js/bootstrap-modal.js"></script> 

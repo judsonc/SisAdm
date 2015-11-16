@@ -5,7 +5,7 @@ require_once ('Links.class.php');
 
 class Corporation {
     private $id;
-    private $id_adm;    
+    private $id_adm;
     private $name;
     public $log;
     public $album;
@@ -17,7 +17,7 @@ class Corporation {
     public $country;
     public $phone1;
     public $phone2;
-    public $mail;    
+    public $mail;
     public $about;
     public $services;
     public $links;
@@ -35,6 +35,7 @@ class Corporation {
      * param int
      * return int
      */
+
     public function setContact($id_adm) {
         $this->id_adm = $id_adm;
         $this->adress = Dbcommand::post("adress_corporation");
@@ -46,17 +47,15 @@ class Corporation {
         $this->phone1 = Dbcommand::post("phone1_corporation");
         $this->phone2 = Dbcommand::post("phone2_corporation");
         $this->mail = Dbcommand::post("mail_corporation");
-        
+
         if (empty($this->adress) || empty($this->square) || empty($this->city) || empty($this->state) || empty($this->country)) {
             return 7;
-        } elseif (!ValidationData::cep($this->zip) || !ValidationData::mail($this->mail) || !ValidationData::phone($this->phone1) 
-                || !ValidationData::phone($this->phone2) || !ValidationData::text($this->square) || !ValidationData::text($this->city)
-                || !ValidationData::text($this->state) || !ValidationData::text($this->country) || !ValidationData::text($this->adress)) {
+        } elseif (!ValidationData::cep($this->zip) || !ValidationData::mail($this->mail) || !ValidationData::phone($this->phone1) || !ValidationData::phone($this->phone2) || !ValidationData::text($this->square) || !ValidationData::text($this->city) || !ValidationData::text($this->state) || !ValidationData::text($this->country) || !ValidationData::text($this->adress)) {
             return 18;
         } else {
             $this->adress = Criptografia::BASE64($this->adress, 1);
             $this->city = Criptografia::BASE64($this->city, 1);
-            $this->country = Criptografia::BASE64($this->country, 1);            
+            $this->country = Criptografia::BASE64($this->country, 1);
             $this->mail = Criptografia::BASE64($this->mail, 1);
             $this->square = Criptografia::BASE64($this->square, 1);
             $this->phone1 = Criptografia::BASE64($this->phone1, 1);
@@ -64,53 +63,52 @@ class Corporation {
             $this->state = Criptografia::BASE64($this->state, 1);
             $this->zip = Criptografia::BASE64($this->zip, 1);
             $this->log = Criptografia::BASE64(date("Y-m-d H:i:s"), 1);
-            Dbcommand::update('tb_empresa', 
-                    array('EMP_ID_ADM' => $this->id_adm,'EMP_DATA' => $this->log,
-                        'EMP_END' => $this->adress,'EMP_CEP' => $this->zip,
-                        'EMP_BAIRRO' => $this->square,'EMP_CIDADE' => $this->city,
-                        'EMP_ESTADO' => $this->state,'EMP_PAIS' => $this->country,
-                        'EMP_TEL1' => $this->phone1,'EMP_TEL2' => $this->phone2,
-                        'EMP_EMAIL' => $this->mail),
-                    array('EMP_ID' => $this->id));
+            Dbcommand::update('tb_empresa', array('EMP_ID_ADM' => $this->id_adm, 'EMP_DATA' => $this->log,
+                'EMP_END' => $this->adress, 'EMP_CEP' => $this->zip,
+                'EMP_BAIRRO' => $this->square, 'EMP_CIDADE' => $this->city,
+                'EMP_ESTADO' => $this->state, 'EMP_PAIS' => $this->country,
+                'EMP_TEL1' => $this->phone1, 'EMP_TEL2' => $this->phone2,
+                'EMP_EMAIL' => $this->mail), array('EMP_ID' => $this->id));
             return 5;
         }
     }
-    
+
     /*
      * Function setAbout()
      *      Seleciona todos os campos do Banco de dados e atribui os valores das colunas aos atributos da classe ja descriptografado
      * param int
      * return int
      */
+
     public function setAbout($id) {
         $this->id_adm = $id;
         $this->about = Dbcommand::post("about_corporation");
-        if (empty($this->about)){
+        if (empty($this->about)) {
             return 7;
         } else {
             $this->about = Criptografia::BASE64($this->about, 1);
             $this->log = Criptografia::BASE64(date("Y-m-d H:i:s"), 1);
-            Dbcommand::update('tb_empresa', 
-                    array('EMP_ID_ADM' => $this->id_adm,'EMP_DATA' => $this->log,'EMP_SOBRE' => $this->about),
-                    array('EMP_ID' => $this->id));
+            Dbcommand::update('tb_empresa', array('EMP_ID_ADM' => $this->id_adm, 'EMP_DATA' => $this->log, 'EMP_SOBRE' => $this->about), array('EMP_ID' => $this->id));
             return 5;
         }
     }
+
     /*
      * Function get()
      *      Seleciona todos os campos do Banco de dados e atribui os valores das colunas aos atributos da classe ja descriptografado
      * param void
      * return object
      */
-    public function get() {        
+
+    public function get() {
         $result = Dbcommand::select('tb_empresa', array('ALL'), 'ORDER BY EMP_ID DESC LIMIT 1');
         $results = Dbcommand::rows($result);
         $this->id = $results['EMP_ID'];
         $this->id_adm = $results['EMP_ID_ADM'];
-        foreach ($results as $key => $value){
+        foreach ($results as $key => $value) {
             $results[$key] = Criptografia::BASE64($value, 0);
         }
-        $this->name = $results['EMP_NOME'];        
+        $this->name = $results['EMP_NOME'];
         $this->log = $results['EMP_DATA'];
         $this->adress = $results['EMP_END'];
         $this->zip = $results['EMP_CEP'];
@@ -121,34 +119,35 @@ class Corporation {
         $this->phone1 = $results['EMP_TEL1'];
         $this->phone2 = $results['EMP_TEL2'];
         $this->mail = $results['EMP_EMAIL'];
-        $this->about = str_replace('\r\n','&#13;&#10;', $results['EMP_SOBRE']);
-        
+        $this->about = str_replace('\r\n', '&#13;&#10;', $results['EMP_SOBRE']);
+
         return $this;
     }
-    
+
     /*
      * Function getName()
      *      Retorna o nome da companhia
      * param void
      * return string
-     */    
+     */
+
     public function getName() {
         return $this->name;
     }
-    
+
     /*
      * Function setName()
      *      Armazena o nome da empresa. Função pra ADMINISTRADOR.
      * param string
      * return void
-     */    
+     */
+
     public function setName() {
         $this->name = Dbcommand::post('name_corporation');
         $this->name = Criptografia::BASE64($this->name, 1);
-        Dbcommand::insert('tb_empresa', 
-                array('EMP_NOME'), 
-                array($this->name));
-        
+        Dbcommand::insert('tb_empresa', array('EMP_NOME'), array($this->name));
+
         return $this;
     }
+
 }

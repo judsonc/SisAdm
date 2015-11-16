@@ -9,21 +9,21 @@ if ((int) Dbcommand::get('del') > 0 && (int) Dbcommand::get('del') <= $user->mai
 }
 
 ?>
-        <!-- Banner -->
-        <div class="span9">
-            <div class="hero-unit">
+        <!-- Emails -->
+        <div class="col-xs-12 col-sm-10">
+            <div class="jumbotron">
                 <a href="./"><h1>Emails</h1></a>
                 <br/>
-                <?php include("../components/msg.php"); ?>
-                
+                <?php echo Message::get(); ?>
+
                 <p>Você tem <?php echo $user->mails->size; ?> mensagens.</p>
                 <br/>
-                <?php if ((int) Dbcommand::get('up') > 0 && (int) Dbcommand::get('up') <= $user->mails->size) {                    
+                <?php if ((int) Dbcommand::get('up') > 0 && (int) Dbcommand::get('up') <= $user->mails->size) {
                     $i = Dbcommand::get('up') - 1;
                     $user->mails->mail[$i]->setStatus();
                     $user->mails->get();
                 ?>
-                
+
                 <div>
                     <p>Nome: <?php echo $user->mails->mail[$i]->name; ?></p>
                 </div>
@@ -38,16 +38,16 @@ if ((int) Dbcommand::get('del') > 0 && (int) Dbcommand::get('del') <= $user->mai
                 </div>
                 <div>
                     <p>Mensagem: <?php echo $user->mails->mail[$i]->message; ?></p>
-                </div>                
+                </div>
                 <?php } ?>
-                
+
             </div>
             <?php include 'table.php'; ?>
         </div>
-        <!-- // Fim Banner -->
+        <!-- // Fim Emails -->
     <!-- // Fim Conteudo -->
     </div>
-    <!-- // Fim Corpo --> 
+    <!-- // Fim Corpo -->
 </div>
 <!--  Rodape -->
 <?php

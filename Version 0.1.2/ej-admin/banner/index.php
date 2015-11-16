@@ -11,30 +11,32 @@ if ((int) Dbcommand::get('del') > 0 && (int) Dbcommand::get('del') <= $banner->s
 
 /*   =============   Adicionar imagem   ===============     */
 if (@$_POST) {
-    header("Location: index.php?msg=" .$banner->addPhoto($user->getId())); 
+    header("Location: index.php?msg=" .$banner->addPhoto($user->getId()));
 }
 
 ?>
         <!-- Banner -->
-        <div class="span9">
-            <div class="hero-unit">
+        <div class="col-xs-12 col-sm-10">
+            <div class="jumbotron">
                 <a href="./"><h1>Banners</h1></a>
                 <br/>
-                <?php include("../components/msg.php"); ?>                    
+                <?php echo Message::get(); ?>
+
                 <form enctype="multipart/form-data" action="index.php" method="post">
                     <fieldset>
-                        <div>Nome:
-                            <input type='text' name='name_photo' class="form-control" placeholder="Digite o Nome do Banner" pattern="^[^<>]{0,255}$" required/> 
-                        </div>                                                               
                         <div>
-                            <p>Imagem (.png, .jpeg, .jpg):
-                            <input name="photo" id="photo" type="file" required/>                                
-                            </p>
+                            <h4>Nome:</h4>
+                            <input type='text' name='name_photo' class="form-control" placeholder="Digite o Nome do Banner" pattern="^[^<>]{0,255}$" required/>
+                        </div>
+                        <div>
+                            <h4>Imagem (.png, .jpeg, .jpg):</h4>
+                            <input name="photo" id="photo" type="file" required/>
+                            <br/>
                             *Tamanho recomendado: 1280x720
                         </div>
                         <br/>
-                        <button type="submit" class="btn btn-primary pull-right">Salvar</button>                        
-                        <a href='../' class="btn btn-primary pull-right">Cancelar</a>                                
+                        <button type="submit" class="btn btn-primary pull-right">Salvar</button>
+                        <a href='../' class="btn btn-primary pull-right">Cancelar</a>
                     </fieldset>
                 </form>
             </div>
@@ -43,7 +45,7 @@ if (@$_POST) {
         <!-- // Fim Banner -->
     <!-- // Fim Conteudo -->
     </div>
-    <!-- // Fim Corpo --> 
+    <!-- // Fim Corpo -->
 </div>
 <!--  Rodape -->
 <?php

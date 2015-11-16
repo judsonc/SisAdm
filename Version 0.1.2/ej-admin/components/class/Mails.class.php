@@ -4,7 +4,7 @@ require_once ("Mail.class.php");
 class Mails {
     public $mail = array();
     public $size;
-    
+
     /*
      * Function getId()
      *      Retorna o id do usuario
@@ -18,7 +18,7 @@ class Mails {
             $this->mail[$i] = new Mail();
             $this->mail[$i]->setId($results['EM_ID']);
             $this->mail[$i]->status = $results['EM_STATUS'];
-            foreach ($results as $key => $value){
+            foreach ($results as $key => $value) {
                 $results[$key] = Criptografia::BASE64($value, 0);
             }
             $this->mail[$i]->date_in = $results['EM_DATA'];
@@ -33,7 +33,7 @@ class Mails {
         $this->size = $i;
         return $this;
     }
-    
+
     /*
      * Function addMailIndex()
      *      Retorna o email do usuario da index
