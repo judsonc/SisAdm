@@ -8,12 +8,12 @@ abstract class Connection {
     protected static $conn;
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     * Function connect()
+     *      Realiza a conexao pelas strings: hostname, username, password e dbname, usando banco de dados 'mysqli', além de checar a conexao.
      * param void
      * return object
      */
-    static private function connect() {
+    private static function connect() {
         $conn = new mysqli(self::$hostname, self::$username, self::$password, self::$dbname);
 
         // Checar conexao
@@ -24,12 +24,12 @@ abstract class Connection {
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+     * Function execute()
+     *      Executa a criação de uma base de dados realizando a conexao
+     * param string
+     * return string
      */
-    static protected function execute($query) {
+    protected static function execute($query) {
         if (empty(self::$conn) || !isset(self::$conn)) {
             Connection::connect();
         }
@@ -42,12 +42,12 @@ abstract class Connection {
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     * Function close()
+     *      Fecha a conexão com o banco de dados
      * param void
-     * return object
+     * return void
      */
-    static public function close() {
+    public static function close() {
         mysqli_close(self::$conn);
     }
 }

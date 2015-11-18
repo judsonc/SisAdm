@@ -1,5 +1,5 @@
 <?php
-require_once ('Criptografia.class.php');
+require_once ('Criptography.class.php');
 require_once ('Dbcommand.class.php');
 require_once ('ValidationData.class.php');
 require_once ('Album.class.php');
@@ -15,10 +15,10 @@ class Service {
     public $key;   /*  Nome chave do album eh o primeiro nome do servico    */
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+     * Function set()
+     *      Insere no Banco de dados informaoes sobre "serviços" e criptografa
+     * param int
+     * return int
      */
     public function set($id_adm) {
         $this->id_adm = $id_adm;
@@ -34,21 +34,21 @@ class Service {
         if (!ValidationData::text($this->name)) {
             return 18;
         } else {
-            $this->name = Criptografia::BASE64($this->name, 1);
-            $this->about = Criptografia::BASE64($this->about, 1);
-            $this->date_in = Criptografia::BASE64(date("Y-m-d H:i:s"), 1);
+            $this->name = Criptography::BASE64($this->name, 1);
+            $this->about = Criptography::BASE64($this->about, 1);
+            $this->date_in = Criptography::BASE64(date("Y-m-d H:i:s"), 1);
             $this->log = $this->date_in;
-            $this->key = Criptografia::BASE64($this->key, 1);
+            $this->key = Criptography::BASE64($this->key, 1);
             Dbcommand::insert('tb_servicos', array('SER_ID_ADM', 'SER_DATA', 'SER_LOG', 'SER_NOME', 'SER_SOBRE', 'SER_CHAVE'), array($this->id_adm, $this->date_in, $this->log, $this->name, $this->about, $this->key));
             return 6;
         }
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     * Function delete()
+     *      Deleta "serviços"do banco de dados
      * param void
-     * return object
+     * return int
      */
     public function delete() {
         $this->album->delete();
@@ -57,10 +57,10 @@ class Service {
     }
 
     /*
-     * Function get()
+     * Function update()
      *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+     * param int, int
+     * return int
      */
     public function update($id_adm, $url = 1) {
         $this->id_adm = $id_adm;
@@ -74,9 +74,9 @@ class Service {
         if (!ValidationData::text($this->name)) {
             return 18;
         } else {
-            $this->name = Criptografia::BASE64($this->name, 1);
-            $this->about = Criptografia::BASE64($this->about, 1);
-            $this->log = Criptografia::BASE64(date("Y-m-d H:i:s"), 1);
+            $this->name = Criptography::BASE64($this->name, 1);
+            $this->about = Criptography::BASE64($this->about, 1);
+            $this->log = Criptography::BASE64(date("Y-m-d H:i:s"), 1);
             Dbcommand::update('tb_servicos', array('SER_ID_ADM' => $this->id_adm, 'SER_LOG' => $this->log, 'SER_NOME' => $this->name, 'SER_SOBRE' => $this->about), array('SER_ID' => $this->id));
             return 5;
         }
@@ -84,7 +84,7 @@ class Service {
 
     /*
      * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     *      Seleciona o campos do Banco de dados e o retorna
      * param void
      * return object
      */
@@ -94,18 +94,18 @@ class Service {
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+     * Function setId()
+     *      Seta o Id no banco de dados
+     * param int
+     * return void
      */
     public function setId($id) {
         $this->id = $id;
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     * Function getId()
+     *      Retorna o Id
      * param void
      * return object
      */
@@ -114,10 +114,10 @@ class Service {
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+     * Function setId_adm()
+     *      Seta o Id do administrador
+     * param int
+     * return void
      */
     public function setId_adm($id_adm) {
         $this->id_adm = $id_adm;

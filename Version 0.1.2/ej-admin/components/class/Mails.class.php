@@ -1,13 +1,13 @@
 <?php
-require_once ("Mail.class.php");
+require_once ('Mail.class.php');
 
 class Mails {
     public $mail = array();
     public $size;
 
     /*
-     * Function getId()
-     *      Retorna o id do usuario
+     * Function get()
+     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
      * param void
      * return int
      */
@@ -19,7 +19,7 @@ class Mails {
             $this->mail[$i]->setId($results['EM_ID']);
             $this->mail[$i]->status = $results['EM_STATUS'];
             foreach ($results as $key => $value) {
-                $results[$key] = Criptografia::BASE64($value, 0);
+                $results[$key] = Criptography::BASE64($value, 0);
             }
             $this->mail[$i]->date_in = $results['EM_DATA'];
             $this->mail[$i]->name = $results['EM_NOME'];

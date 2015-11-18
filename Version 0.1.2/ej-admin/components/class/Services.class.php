@@ -1,13 +1,13 @@
 <?php
-include('Service.class.php');
+require_once ('Service.class.php');
 
 class Services {
     public $service = array();
     public $size;
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     * Function __construct()
+     *      Retorna um metodo
      * param void
      * return object
      */
@@ -29,7 +29,7 @@ class Services {
             $this->service[$i]->setId($results['SER_ID']);
             $this->service[$i]->setId_adm($results['SER_ID_ADM']);
             foreach ($results as $key => $value) {
-                $results[$key] = Criptografia::BASE64($value, 0);
+                $results[$key] = Criptography::BASE64($value, 0);
             }
             $this->service[$i]->log = $results['SER_LOG'];
             $this->service[$i]->date_in = $results['SER_DATA'];
@@ -44,9 +44,9 @@ class Services {
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
+     * Function addService()
+     *      Adiciona um novo serviço no banco de dados
+     * param int
      * return object
      */
     public function addService($id_adm) {

@@ -1,7 +1,7 @@
 <?php
-include_once ("Criptografia.class.php");
-include_once ('Dbcommand.class.php');
-include_once ('ValidationData.class.php');
+require_once ('Criptography.class.php');
+require_once ('Dbcommand.class.php');
+require_once ('ValidationData.class.php');
 
 class Photo {
     private $id;
@@ -29,10 +29,10 @@ class Photo {
         if (empty($this->url)) {
             return 7;
         } else {
-            $this->name = Criptografia::BASE64($this->name, 1);
-            $this->url = Criptografia::BASE64($this->url, 1);
-            $this->albumName = Criptografia::BASE64($this->albumName, 1);
-            $this->date_in = Criptografia::BASE64(date("Y-m-d H:i:s"), 1);
+            $this->name = Criptography::BASE64($this->name, 1);
+            $this->url = Criptography::BASE64($this->url, 1);
+            $this->albumName = Criptography::BASE64($this->albumName, 1);
+            $this->date_in = Criptography::BASE64(date("Y-m-d H:i:s"), 1);
             $this->log = $this->date_in;
             Dbcommand::insert('tb_fotos', array('FOTO_ID_ADM', 'FOTO_DATA', 'FOTO_NOME', 'FOTO_NOME_ALBUM', 'FOTO_URL', 'FOTO_LOG'), array($this->id_adm, $this->date_in, $this->name, $this->albumName, $this->url, $this->log));
             return 6;
@@ -41,7 +41,7 @@ class Photo {
 
     /*
      * Function delete()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     *      Deleta fotos do banco de dados
      * param void
      * return int
      */
@@ -53,7 +53,7 @@ class Photo {
     /*
      * Function update()
      *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado, aceita nome da foto vazio
-     * param int, string
+     * param int, int
      * return int
      */
     public function update($id_adm, $url = 1) {
@@ -67,28 +67,28 @@ class Photo {
         if (!empty($this->name) && ValidationData::text($this->name) == false) {
             return 18;
         } else {
-            $this->name = Criptografia::BASE64($this->name, 1);
-            $this->url = Criptografia::BASE64($this->url, 1);
-            $this->albumName = Criptografia::BASE64($this->albumName, 1);
-            $this->log = Criptografia::BASE64(date("Y-m-d H:i:s"), 1);
+            $this->name = Criptography::BASE64($this->name, 1);
+            $this->url = Criptography::BASE64($this->url, 1);
+            $this->albumName = Criptography::BASE64($this->albumName, 1);
+            $this->log = Criptography::BASE64(date("Y-m-d H:i:s"), 1);
             Dbcommand::update('tb_fotos', array('FOTO_ID_ADM' => $this->id_adm, 'FOTO_LOG' => $this->log, 'FOTO_NOME' => $this->name, 'FOTO_NOME_ALBUM' => $this->albumName, 'FOTO_URL' => $this->url), array('FOTO_ID' => $this->id));
             return 5;
         }
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+     * Function setId()
+     *      Seta o Id no banco de dados
+     * param int
+     * return void
      */
     public function setId($id) {
         $this->id = $id;
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     * Function getId()
+     *      Retorna o Id
      * param void
      * return object
      */
@@ -97,10 +97,10 @@ class Photo {
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+     * Function setId_adm()
+     *      Seta o Id do administrador
+     * param int
+     * return void
      */
     public function setId_adm($id_adm) {
         $this->id_adm = $id_adm;
@@ -123,12 +123,12 @@ class Photo {
     }
 
     /*
-     * Function getName()
+     * Function getSendName()
      *      Verifica se o arquivo eh uma imagem, cria o nome e envia a imagem pro servidor e retorna o endereço da foto a partir do diretorio de onde o método é chamado, entrando na pasta "components/img" em seguida
      * param void
      * return string, int
      */
-    static public function getSendName() {
+    public static function getSendName() {
         $name = explode(".", $_FILES['photo']['name']);
         $name = array_reverse($name);
         if (ValidationData::img($name[0])) { /*   Verificando se eh uma imagem   */

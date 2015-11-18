@@ -1,5 +1,5 @@
 <?php
-date_default_timezone_set('America/Sao_Paulo'); 
+date_default_timezone_set('America/Sao_Paulo');
 
 // ------  Incluindo as Classes  ------
 include_once ("class/User.class.php");
@@ -23,7 +23,7 @@ if (!isset($no_need_login) || !$no_need_login) {
          $segundos = time() - $registro;
         } // fim da verificacao da session registro
 
-        /* verifica o tempo de inatividade 
+        /* verifica o tempo de inatividade
         se ele tiver ficado mais do tempo limite sem atividade ele destroi a session
         se nao ele renova o tempo e ai eh contado mais o tempo limite */
         if($segundos > $limite){

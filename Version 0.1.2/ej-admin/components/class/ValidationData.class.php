@@ -3,22 +3,21 @@
 class ValidationData {
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+     * Function img()
+     *      Verifica se uma das extensoes validas é a mesma extensao do arquivo
+     * param string
+     * return boolean
      */
     public static function img($ext) {
-        // Verifica se a extensão é de um dos tipo do array, return boolean;
         $image = array('jpg', 'png', 'gif', 'jpeg', 'svg', 'JPG', 'PNG', 'GIF', 'JPEG', 'SVG');
         return in_array($ext, $image);
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+     * Function cpf()
+     *      Recebe o CPF e verifica se ele é valido
+     * param string
+     * return boolean
      */
     public static function cpf($cpf) {
         // Verifica se um número foi informado
@@ -30,11 +29,11 @@ class ValidationData {
         $cpf = ereg_replace('[^0-9]', '', $cpf);
         $cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
 
-        // Verifica se o numero de digitos informados é igual a 11 
+        // Verifica se o numero de digitos informados é igual a 11
         if (strlen($cpf) != 11) {
             return false;
         }
-        // Verifica se nenhuma das sequências invalidas abaixo 
+        // Verifica se nenhuma das sequências invalidas abaixo
         // foi digitada. Caso afirmativo, retorna falso
         else if ($cpf == '00000000000' ||
                 $cpf == '11111111111' ||
@@ -66,10 +65,10 @@ class ValidationData {
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+     * Function date()
+     *      Avalia se a data é valida
+     * param string
+     * return boolean
      */
     public static function date($date) {
         if (preg_match("/^\d{1,2}\/\d{1,2}\/\d{4}$/", $date)) {
@@ -82,10 +81,10 @@ class ValidationData {
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+     * Function mail()
+     *      Avalia se o email é valido
+     * param string
+     * return boolean
      */
     public static function mail($mail) {
         if (preg_match("/^([\w\-]+\.)*[\w\- ]+@([\w\- ]+\.)+([\w\-]{2,3})$/", $mail)) {
@@ -98,26 +97,24 @@ class ValidationData {
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+     * Function password()
+     *      Avalia se a senha é forte
+     * param string
+     * return boolean
      */
     public static function password($pass) {
         if (preg_match("/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $pass)) {
-            //echo "ok";
             return true;
         } else {
-            echo "not";
             return false;
         }
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+     * Function username()
+     *      Avalia se o nome do usuario é valido
+     * param string
+     * return boolean
      */
     public static function username($user) {
         if (preg_match("/^[a-zA-Z0-9_.-]{3,16}$/", $user)) {
@@ -130,10 +127,10 @@ class ValidationData {
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+     * Function phone()
+     *      Avalia se o telefone é valido
+     * param string
+     * return boolean
      */
     public static function phone($phone) {
         if (preg_match("/^(\+[0-9][0-9]) (\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})$/", $phone)) {
@@ -144,10 +141,10 @@ class ValidationData {
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+     * Function cep()
+     *      Avalia se o CEP é valido
+     * param string
+     * return boolean
      */
     public static function cep($cep) {
         if (preg_match("/^[0-9]{5}-[0-9]{3}$/", $cep)) {
@@ -158,10 +155,10 @@ class ValidationData {
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+     * Function Name()
+     *      Analisa se o nome é valido
+     * param string
+     * return boolean
      */
     public static function name($name) {
         if (preg_match("/^(([a-zA-Z ]|[çáéíóúãẽĩõũàèìòùâêîôû]){1,60})$/", $name)) {
@@ -172,10 +169,10 @@ class ValidationData {
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+     * Function text()
+     *      Avalia se o texto é valido
+     * param string
+     * return boolean
      */
     public static function text($text) {
         if (preg_match("/^[^<>]{0,255}$/", $text)) {

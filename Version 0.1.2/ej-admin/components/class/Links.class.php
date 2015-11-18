@@ -6,10 +6,10 @@ class Links {
     public $size;
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     * Function __construct()
+     *      Chama o metodo get
      * param void
-     * return object
+     * return void
      */
     public function __construct() {
         $this->get();
@@ -17,7 +17,7 @@ class Links {
 
     /*
      * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     *      Seleciona todos os campos do Banco de dados e retorna os valores ja descriptografado
      * param void
      * return object
      */
@@ -29,7 +29,7 @@ class Links {
             $this->link[$i]->setId($results['LINK_ID']);
             $this->link[$i]->setId_adm($results['LINK_ID_ADM']);
             foreach ($results as $key => $value) {
-                $results[$key] = Criptografia::BASE64($value, 0);
+                $results[$key] = Criptography::BASE64($value, 0);
             }
             $this->link[$i]->log = $results['LINK_LOG'];
             $this->link[$i]->date_in = $results['LINK_DATA'];
@@ -45,9 +45,9 @@ class Links {
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
+     * Function addLink()
+     *      Adiciona um novo link
+     * param int
      * return object
      */
     public function addLink($id_adm) {

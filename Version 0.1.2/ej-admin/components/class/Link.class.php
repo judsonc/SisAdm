@@ -1,5 +1,5 @@
 <?php
-require_once ('Criptografia.class.php');
+require_once ('Criptography.class.php');
 require_once ('Dbcommand.class.php');
 require_once ('ValidationData.class.php');
 require_once ('Album.class.php');
@@ -16,10 +16,10 @@ class Link {
     public $key;   /*  Nome chave do album eh o primeiro nome do servico    */
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+     * Function set()
+     *      seta todos os campos no Banco de dados e criptografando-os antes
+     * param int
+     * return int
      */
     public function set($id_adm) {
         $this->id_adm = $id_adm;
@@ -36,22 +36,22 @@ class Link {
         if (!ValidationData::text($this->name) || !ValidationData::text($this->url)) {
             return 18;
         } else {
-            $this->name = Criptografia::BASE64($this->name, 1);
-            $this->about = Criptografia::BASE64($this->about, 1);
-            $this->url = Criptografia::BASE64($this->url, 1);
-            $this->date_in = Criptografia::BASE64(date("Y-m-d H:i:s"), 1);
+            $this->name = Criptography::BASE64($this->name, 1);
+            $this->about = Criptography::BASE64($this->about, 1);
+            $this->url = Criptography::BASE64($this->url, 1);
+            $this->date_in = Criptography::BASE64(date("Y-m-d H:i:s"), 1);
             $this->log = $this->date_in;
-            $this->key = Criptografia::BASE64($this->key, 1);
+            $this->key = Criptography::BASE64($this->key, 1);
             Dbcommand::insert('tb_links', array('LINK_ID_ADM', 'LINK_DATA', 'LINK_LOG', 'LINK_NOME', 'LINK_SOBRE', 'LINK_CHAVE', 'LINK_URL'), array($this->id_adm, $this->date_in, $this->log, $this->name, $this->about, $this->key, $this->url));
             return 6;
         }
     }
 
-    /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     /*
+     * Function delete()
+     *      Deleta campo no banco de dados
      * param void
-     * return object
+     * return int
      */
     public function delete() {
         $this->album->delete();
@@ -60,10 +60,10 @@ class Link {
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+     * Function update()
+     *       Atualiza os valores no Banco de dados e criptografa caso ainda nao esteja
+     * param int, int
+     * return int
      */
     public function update($id_adm, $url = 1) {
         $this->id_adm = $id_adm;
@@ -78,10 +78,10 @@ class Link {
         if (!ValidationData::text($this->name) || !ValidationData::text($this->url)) {
             return 18;
         } else {
-            $this->name = Criptografia::BASE64($this->name, 1);
-            $this->about = Criptografia::BASE64($this->about, 1);
-            $this->url = Criptografia::BASE64($this->url, 1);
-            $this->log = Criptografia::BASE64(date("Y-m-d H:i:s"), 1);
+            $this->name = Criptography::BASE64($this->name, 1);
+            $this->about = Criptography::BASE64($this->about, 1);
+            $this->url = Criptography::BASE64($this->url, 1);
+            $this->log = Criptography::BASE64(date("Y-m-d H:i:s"), 1);
             Dbcommand::update('tb_links', array('LINK_ID_ADM' => $this->id_adm, 'LINK_LOG' => $this->log, 'LINK_NOME' => $this->name, 'LINK_SOBRE' => $this->about, 'LINK_URL' => $this->url), array('LINK_ID' => $this->id));
             return 5;
         }
@@ -89,7 +89,7 @@ class Link {
 
     /*
      * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     *      Retorna os campos da classe Album
      * param void
      * return object
      */
@@ -99,18 +99,18 @@ class Link {
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+     * Function setId()
+     *      Seta o id
+     * param int
+     * return void
      */
     public function setId($id) {
         $this->id = $id;
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     * Function getId()
+     *      Retorna id
      * param void
      * return object
      */
@@ -119,10 +119,10 @@ class Link {
     }
 
     /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+     * Function setId_adm()
+     *      Seta o Id do administrador
+     * param int
+     * return void
      */
     public function setId_adm($id_adm) {
         $this->id_adm = $id_adm;

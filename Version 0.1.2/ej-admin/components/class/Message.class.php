@@ -44,7 +44,7 @@ class Message {
 
     /*
      * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
+     *      Seleciona o indice o array, retornando a mensagem
      * param void
      * return object
      */

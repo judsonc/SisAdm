@@ -1,6 +1,6 @@
 <?php
-require_once ("Person.class.php");
-require_once ("Mails.class.php");
+require_once ('Person.class.php');
+require_once ('Mails.class.php');
 
 class User extends Person {
     private $password;
@@ -18,7 +18,7 @@ class User extends Person {
         $result = Dbcommand::select('tb_administradores', array('ADM_ID' => $this->id));
         $results = Dbcommand::rows($result);
         foreach ($results as $key => $value) {
-            @$results[$key] = @Criptografia::BASE64(@$value, 0);
+            $results[$key] = Criptography::BASE64($value, 0);
         }
         $this->name = $results['ADM_NOME'];
         $this->login = $results['ADM_LOGIN'];
@@ -48,16 +48,16 @@ class User extends Person {
         if (!ValidationData::mail($this->mail_job) || !ValidationData::name($this->name)) {
             return 18;
         } else {
-            $this->name = Criptografia::BASE64($this->name, 1);
-            $this->mail_job = Criptografia::BASE64($this->mail_job, 1);
-            $this->log = Criptografia::BASE64(date("Y-m-d H:i:s"), 1);
+            $this->name = Criptography::BASE64($this->name, 1);
+            $this->mail_job = Criptography::BASE64($this->mail_job, 1);
+            $this->log = Criptography::BASE64(date("Y-m-d H:i:s"), 1);
             $this->password = Dbcommand::post("password1_user");
             $passtmp = Dbcommand::post("password2_user");
             if (!empty($this->password) && !empty($passtmp)) {
                 if ($this->password !== $passtmp) {
                     return 9;
                 } else {
-                    $this->password = Criptografia::Bcrypt($this->password);
+                    $this->password = Criptography::Bcrypt($this->password);
                     Dbcommand::update('tb_administradores', array('ADM_NOME' => $this->name, 'ADM_LOG' => $this->log,
                         'ADM_EMAIL' => $this->mail_job, 'ADM_SENHA' => $this->password), array('ADM_ID' => $this->id));
                     return 5;
@@ -82,7 +82,7 @@ class User extends Person {
     /*
      * Function setId()
      *      Armazena o id do usuario
-     * param void
+     * param int
      * return int
      */
     public function setId($id) {
@@ -94,7 +94,7 @@ class User extends Person {
      * Function set()
      *      Insere no Banco de dados todos os valores já criptgrofado checando se o texto nao esta vazio
      * param void
-     * return boolean
+     * return boolean, int
      */
     public function set() {
         $this->name = Dbcommand::post("name_user");
@@ -105,13 +105,13 @@ class User extends Person {
         if (empty($this->password) || $this->password !== Dbcommand::post('password2_user')) {
             return 9;
         } else {
-            $this->password = Criptografia::Bcrypt($this->password);
+            $this->password = Criptography::Bcrypt($this->password);
         }
 
         if (!ValidationData::username($this->login) || !ValidationData::mail($this->mail_job) || !ValidationData::name($this->name)) {
             return 18;
         }
-        $this->login = Criptografia::BASE64($this->login, 1);
+        $this->login = Criptography::BASE64($this->login, 1);
         $result = Dbcommand::select('tb_administradores', array('ADM_LOGIN' => $this->login));
         if (Dbcommand::count_rows($result) > 0) {
             return 8;
@@ -121,9 +121,9 @@ class User extends Person {
             $mail->mail_job = $this->mail_job;
             $mail->setSave();
 
-            $this->name = Criptografia::BASE64($this->name, 1);
-            $this->mail_job = Criptografia::BASE64($this->mail_job, 1);
-            $this->date_in = Criptografia::BASE64(date("Y-m-d H:i:s"), 1);
+            $this->name = Criptography::BASE64($this->name, 1);
+            $this->mail_job = Criptography::BASE64($this->mail_job, 1);
+            $this->date_in = Criptography::BASE64(date("Y-m-d H:i:s"), 1);
             Dbcommand::insert('tb_administradores', array('ADM_DATA', 'ADM_NOME', 'ADM_SENHA', 'ADM_LOGIN', 'ADM_EMAIL', 'ADM_STATUS'), array($this->date_in, $this->name, $this->password, $this->login, $this->mail_job, $this->status));
             return 6;
         }
@@ -139,11 +139,11 @@ class User extends Person {
         $this->login = Dbcommand::post("username_user");
         $this->password = Dbcommand::post("password_user");
         if (!empty($this->login) && !empty($this->password)) {
-            $this->login = Criptografia::BASE64($this->login, 1);
+            $this->login = Criptography::BASE64($this->login, 1);
             $result = Dbcommand::select('tb_administradores', array('ADM_LOGIN' => $this->login));
             if (Dbcommand::count_rows($result) > 0) {
                 $results = Dbcommand::rows($result);
-                if (Criptografia::CheckBcrypt($this->password, $results['ADM_SENHA']) == FALSE) {
+                if (Criptography::CheckBcrypt($this->password, $results['ADM_SENHA']) == FALSE) {
                     return 12;
                 } else {
                     $this->setId($results['ADM_ID']);
@@ -164,7 +164,7 @@ class User extends Person {
                             // fim das configurações de tempo inativo
                         }
                         $_SESSION['usuario_logado'] = $this->getId();
-                        $this->log = Criptografia::BASE64(date("Y-m-d H:i:s"), 1);
+                        $this->log = Criptography::BASE64(date("Y-m-d H:i:s"), 1);
                         Dbcommand::update('tb_administradores', array('ADM_LOG' => $this->log), array('ADM_ID' => $this->id));
                         return 20;
                     }
@@ -181,39 +181,10 @@ class User extends Person {
      * Function sendMail()
      *      Verifica os dados de entrada e valida caso o estajam corretos, e em seguida guarda a mensagem no banco
      * param void
-     * return void
+     * return object
      */
     public function sendMail() {
         $this->mails = new Mails();
         return $this->mails->addMailIndex();
     }
 }
-
-/*
-    function save($name,$password,$login,$mail_job,$date){
-        $this->name = $name;
-        $this->password = $password;
-        $this->login = $login;
-        $this->mail_job = $mail_job;
-        $this->date_in = $date;
-
-        $this->sql_query("INSERT INTO tb_administradores (ADM_NOME, ADM_LOGIN, ADM_SENHA, ADM_EMAIL, ADM_DATA, ADM_LOG, ADM_STATUS) VALUES ('$this->name', '$this->login', '$this->password', '$this->mail_job', '$this->date_in', '', '$this->status')");
-        
-    }
-    
-    function enable_user($id){
-        $this->sql_query("UPDATE tb_administradores SET ADM_STATUS=2 WHERE ADM_ID='$id'");
-        echo $id;
-    }
-    
-    function disable_user(){
-        $this->sql_query("UPDATE tb_administradores SET ADM_STATUS=3 WHERE ADM_ID='$this->id'");
-    }
-
-    function hour_save($hour1,$hour2,$obs){
-        $this->sql_query("UPDATE tb_administradores SET ADM_HORARIO1='$hour1',ADM_HORARIO2='$hour2' WHERE ADM_ID='$this->id'");
-    }
-
-    function hour_free($hours,$obs){
-       $this->sql_query("UPDATE tb_administradores SET ADM_HORARIOS='$hours', ADM_OBS='$obs' WHERE ADM_ID='$this->id'");
-    }*/
