@@ -1,7 +1,6 @@
 <?php
 require_once ('Person.class.php');
 require_once ('Mails.class.php');
-
 class User extends Person {
     private $password;
     private $login;
@@ -26,7 +25,6 @@ class User extends Person {
         $this->mail_job = $results['ADM_EMAIL'];
         $this->date_in = $results['ADM_DATA'];
         $this->log = $results['ADM_LOG'];
-
         $this->mails = new Mails();
         return $this;
     }
@@ -40,11 +38,9 @@ class User extends Person {
     public function update() {
         $this->name = Dbcommand::post("name_user");
         $this->mail_job = Dbcommand::post("mail_job_user");
-
         if (empty($this->name) || empty($this->mail_job)) {
             return 7;
         }
-
         if (!ValidationData::mail($this->mail_job) || !ValidationData::name($this->name)) {
             return 18;
         } else {
@@ -101,13 +97,11 @@ class User extends Person {
         $this->login = Dbcommand::post("username_user");
         $this->mail_job = Dbcommand::post("mail_job_user");
         $this->password = Dbcommand::post("password1_user");
-
         if (empty($this->password) || $this->password !== Dbcommand::post('password2_user')) {
             return 9;
         } else {
             $this->password = Criptography::Bcrypt($this->password);
         }
-
         if (!ValidationData::username($this->login) || !ValidationData::mail($this->mail_job) || !ValidationData::name($this->name)) {
             return 18;
         }
@@ -120,7 +114,6 @@ class User extends Person {
             $mail->name = Dbcommand::post("username_user");
             $mail->mail_job = $this->mail_job;
             $mail->setSave();
-
             $this->name = Criptography::BASE64($this->name, 1);
             $this->mail_job = Criptography::BASE64($this->mail_job, 1);
             $this->date_in = Criptography::BASE64(date("Y-m-d H:i:s"), 1);
@@ -146,7 +139,7 @@ class User extends Person {
                 if (Criptography::CheckBcrypt($this->password, $results['ADM_SENHA']) == FALSE) {
                     return 12;
                 } else {
-                    $this->setId($results['ADM_ID']);
+                    $this->id = $results['ADM_ID'];
                     $this->status = $results['ADM_STATUS'];
                     if ($this->status != 2) {
                         return 3;
@@ -186,5 +179,37 @@ class User extends Person {
     public function sendMail() {
         $this->mails = new Mails();
         return $this->mails->addMailIndex();
+    }
+
+    /*
+     * Function verifyAccess()
+     *      Verifica se o tempo de sessão do usuario expirou
+     * param void
+     * return void
+     */
+    public function verifyAccess(){
+        session_start();
+        if (!isset($_SESSION['usuario_logado'])) {
+            header("location: ". Dbcommand::getServer() ."/login.php?msg=1");
+        }else{
+            $this->id = ($_SESSION['usuario_logado']);
+            $registro = $_SESSION['registro'];
+            $limite = $_SESSION['limite'];
+            if($registro) {// verifica se a session  registro esta ativa
+             $segundos = time() - $registro;
+            } // fim da verificacao da session registro
+
+            /* verifica o tempo de inatividade
+            se ele tiver ficado mais do tempo limite sem atividade ele destroi a session
+            se nao ele renova o tempo e ai eh contado mais o tempo limite */
+            if($segundos > $limite){
+                session_destroy();
+                echo "<script>alert('Sua sessão expirou, favor logar novamente!');
+                        location.reload()</script>";
+                die();  //destroi pagina para que nao carregue
+            }else{
+              $_SESSION['registro'] = time();
+            }   // fim da verificacao de inatividade
+        }
     }
 }

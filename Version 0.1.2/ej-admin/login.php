@@ -41,7 +41,7 @@ if (@$_POST) {
                     </form>
                 </div>
                 <div class="col-md-4 formulario">
-                    <a href="<?php echo $server; ?>/recuperar">Esqueci minha senha</a><br/>
+                    <a href="<?php echo Dbcommand::getServer(); ?>/recuperar">Esqueci minha senha</a><br/>
                     <a href="<?php echo "http://".$_SERVER['HTTP_HOST']; ?>" title="Você está perdido?">&larr; Voltar para <?php echo $company->getName(); ?></a> <!-- &ecirc; seta pra esquerda -->
                 </div>
             </div>

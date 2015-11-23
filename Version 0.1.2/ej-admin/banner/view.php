@@ -15,7 +15,7 @@ if ((int) Dbcommand::get('up') < 1 || (int) Dbcommand::get('up') > $banner->size
                 header("Location: view.php?up=" .($i+1). "&msg=" .$name);
             }else {
                 unlink("../" .$banner->photo[$i]->getDir());    /* Deletando arquivo em "../components/img"  */
-                header("Location: view.php?up=" .($i+1). "&msg=" .$banner->photo[$i]->update($user->getId(), $server.$name));    /* Adiciona nova foto com novo endereco     */
+                header("Location: view.php?up=" .($i+1). "&msg=" .$banner->photo[$i]->update($user->getId(), Dbcommand::getServer().$name));    /* Adiciona nova foto com novo endereco     */
             }
         }else {     /* Atualiza apenas o nome passando a url antiga     */
             header("Location: view.php?up=" .($i+1). "&msg=" .$banner->photo[$i]->update($user->getId(), $banner->photo[$i]->url));

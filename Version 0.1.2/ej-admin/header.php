@@ -11,15 +11,15 @@ include_once ("components/config.php");
         <meta name="description" content="<?php echo $company->getName(); ?>">
 
         <title>Gerenciamento | <?php echo $company->getName(); ?></title>
-        <link rel="shortcut icon" href="<?php echo $server; ?>/components/img/favicon.png"/>
+        <link rel="shortcut icon" href="<?php echo Dbcommand::getServer(); ?>/components/img/favicon.png"/>
 
-        <link rel="stylesheet" href="<?php echo $server; ?>/components/css/bootstrap.min.css">
-        <link rel="stylesheet" href="<?php echo $server; ?>/components/css/style.css">
-        <link rel="stylesheet" href="<?php echo $server; ?>/components/css/responsive.css">
+        <link rel="stylesheet" href="<?php echo Dbcommand::getServer(); ?>/components/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<?php echo Dbcommand::getServer(); ?>/components/css/style.css">
+        <link rel="stylesheet" href="<?php echo Dbcommand::getServer(); ?>/components/css/responsive.css">
 
-        <script src="<?php echo $server; ?>/components/js/jquery.min.js"></script>
-        <script src="<?php echo $server; ?>/components/js/responsive.js"></script>
-        <script src="<?php echo $server; ?>/components/ckeditor/ckeditor.js"></script>
+        <script src="<?php echo Dbcommand::getServer(); ?>/components/js/jquery.min.js"></script>
+        <script src="<?php echo Dbcommand::getServer(); ?>/components/js/responsive.js"></script>
+        <script src="<?php echo Dbcommand::getServer(); ?>/components/ckeditor/ckeditor.js"></script>
     </head>
     <body>
         <?php
@@ -35,7 +35,7 @@ include_once ("components/config.php");
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand " href="<?php echo $server; ?>"><?php echo $company->getName(); ?></a>
+                        <a class="navbar-brand " href="<?php echo Dbcommand::getServer(); ?>"><?php echo $company->getName(); ?></a>
                     </div>
                     <div class="nav navbar-nav pull-right" id="open-dropdown">
                         <li class="dropdown-toggle" id="dropdown">
@@ -45,9 +45,9 @@ include_once ("components/config.php");
                             </a>
                         </li>
                         <ul class="dropdown-menu">
-                            <li><a href="<?php echo $server; ?>/conta" class="button" id="perfil1">Conta</a></li>
+                            <li><a href="<?php echo Dbcommand::getServer(); ?>/conta" class="button" id="perfil1">Conta</a></li>
                             <hr />
-                            <li><a href="<?php echo $server; ?>/login.php?logout=1">Sair</a></li>
+                            <li><a href="<?php echo Dbcommand::getServer(); ?>/login.php?logout=1">Sair</a></li>
                         </ul>
                     </div>
                 </div>
@@ -58,14 +58,14 @@ include_once ("components/config.php");
                 <!--  Menu lateral -->
                 <div class="col-xs-6 col-sm-2 sidebar-offcanvas" id="sidebar" >
                     <div class="list-group">
-                        <a href="<?php echo $server; ?>" class="list-group-item <?php echo ($active == 'inicio') ? 'selected' : ''; ?>">Início</a>
-                        <a href="<?php echo $server; ?>/banner" class="list-group-item <?php echo ($active == 'banner') ? 'selected' : ''; ?>">Banners</a>
-                        <a href="<?php echo $server; ?>/quemsomos" class="list-group-item <?php echo ($active == 'quemsomos') ? 'selected' : ''; ?>">Quem Somos</a>
-                        <a href="<?php echo $server; ?>/servicos" class="list-group-item <?php echo ($active == 'servico') ? 'selected' : ''; ?>">Serviços</a>
-                        <a href="<?php echo $server; ?>/portfolio" class="list-group-item <?php echo ($active == 'portfolio') ? 'selected' : ''; ?>">Portifólio</a>
-                        <a href="<?php echo $server; ?>/contato" class="list-group-item <?php echo ($active == 'contato') ? 'selected' : ''; ?>">Contato</a>
-                        <a href="<?php echo $server; ?>/emails" class="list-group-item <?php echo ($active == 'email') ? 'selected' : ''; ?>">Emails</a>
-                        <a href="<?php echo $server; ?>/links" class="list-group-item <?php echo ($active == 'link') ? 'selected' : ''; ?>">Links</a>
+                        <a href="<?php echo Dbcommand::getServer(); ?>" class="list-group-item <?php echo ($active == 'inicio') ? 'selected' : ''; ?>">Início</a>
+                        <a href="<?php echo Dbcommand::getServer(); ?>/banner" class="list-group-item <?php echo ($active == 'banner') ? 'selected' : ''; ?>">Banners</a>
+                        <a href="<?php echo Dbcommand::getServer(); ?>/quemsomos" class="list-group-item <?php echo ($active == 'quemsomos') ? 'selected' : ''; ?>">Quem Somos</a>
+                        <a href="<?php echo Dbcommand::getServer(); ?>/servicos" class="list-group-item <?php echo ($active == 'servico') ? 'selected' : ''; ?>">Serviços</a>
+                        <a href="<?php echo Dbcommand::getServer(); ?>/portfolio" class="list-group-item <?php echo ($active == 'portfolio') ? 'selected' : ''; ?>">Portifólio</a>
+                        <a href="<?php echo Dbcommand::getServer(); ?>/contato" class="list-group-item <?php echo ($active == 'contato') ? 'selected' : ''; ?>">Contato</a>
+                        <a href="<?php echo Dbcommand::getServer(); ?>/emails" class="list-group-item <?php echo ($active == 'email') ? 'selected' : ''; ?>">Emails</a>
+                        <a href="<?php echo Dbcommand::getServer(); ?>/links" class="list-group-item <?php echo ($active == 'link') ? 'selected' : ''; ?>">Links</a>
                     </div>
                 </div>
                 <!-- // Fim Menu lateral -->
