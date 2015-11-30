@@ -151,7 +151,7 @@ abstract class Dbcommand extends Connection {
 
     /*      =====     PARA TESTES     ======      */
     static public function getServer(){
-        $path = "/serverangular/ej-admin2"; // Diretorio da index
+        $path = "/ej-admin"; // Diretorio da index
         $server = "http://" . $_SERVER['HTTP_HOST'] . $path;
         return $server;
     }

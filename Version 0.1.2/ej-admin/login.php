@@ -11,14 +11,8 @@ if (Dbcommand::get("logout") == 1) {
 }
 
 if (@$_POST) {
-    $msg = $user->login();
-    if ($msg == 20){ // Logado
-        header("Location: ./");
-    }else {
-        header("Location: login.php?msg=" .$msg);  // Mensagem de Erro
-    }
+    header("Location: login.php?msg=" . $user->login());
 }
-
 ?>
     <!-- Login -->
         <div class="container">

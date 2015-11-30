@@ -56,7 +56,7 @@ class Album {
         for ($i = 0; $i < $this->size; $i++) {
             $this->photo[$i]->delete();
         }
-        return 10;
+        return "sucesso_deletar";
     }
 
     /*

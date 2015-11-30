@@ -39,10 +39,10 @@ class User extends Person {
         $this->name = Dbcommand::post("name_user");
         $this->mail_job = Dbcommand::post("mail_job_user");
         if (empty($this->name) || empty($this->mail_job)) {
-            return 7;
+            return "erro_campos";
         }
         if (!ValidationData::mail($this->mail_job) || !ValidationData::name($this->name)) {
-            return 18;
+            return "erro_campo";
         } else {
             $this->name = Criptography::BASE64($this->name, 1);
             $this->mail_job = Criptography::BASE64($this->mail_job, 1);
@@ -51,16 +51,16 @@ class User extends Person {
             $passtmp = Dbcommand::post("password2_user");
             if (!empty($this->password) && !empty($passtmp)) {
                 if ($this->password !== $passtmp) {
-                    return 9;
+                    return "erro_senha";
                 } else {
                     $this->password = Criptography::Bcrypt($this->password);
                     Dbcommand::update('tb_administradores', array('ADM_NOME' => $this->name, 'ADM_LOG' => $this->log,
                         'ADM_EMAIL' => $this->mail_job, 'ADM_SENHA' => $this->password), array('ADM_ID' => $this->id));
-                    return 5;
+                    return "sucesso_alterar_dados";
                 }
             } else {
                 Dbcommand::update('tb_administradores', array('ADM_NOME' => $this->name, 'ADM_LOG' => $this->log, 'ADM_EMAIL' => $this->mail_job), array('ADM_ID' => $this->id));
-                return 5;
+                return "sucesso_alterar_dados";
             }
         }
     }
@@ -98,17 +98,17 @@ class User extends Person {
         $this->mail_job = Dbcommand::post("mail_job_user");
         $this->password = Dbcommand::post("password1_user");
         if (empty($this->password) || $this->password !== Dbcommand::post('password2_user')) {
-            return 9;
+            return "erro_senha";
         } else {
             $this->password = Criptography::Bcrypt($this->password);
         }
         if (!ValidationData::username($this->login) || !ValidationData::mail($this->mail_job) || !ValidationData::name($this->name)) {
-            return 18;
+            return "erro_campo";
         }
         $this->login = Criptography::BASE64($this->login, 1);
         $result = Dbcommand::select('tb_administradores', array('ADM_LOGIN' => $this->login));
         if (Dbcommand::count_rows($result) > 0) {
-            return 8;
+            return "campos_cadastrados";
         } else {
             $mail = new Mail();  // Envia notificacao para o usuario informando que a conta foi ativada
             $mail->name = Dbcommand::post("username_user");
@@ -118,7 +118,7 @@ class User extends Person {
             $this->mail_job = Criptography::BASE64($this->mail_job, 1);
             $this->date_in = Criptography::BASE64(date("Y-m-d H:i:s"), 1);
             Dbcommand::insert('tb_administradores', array('ADM_DATA', 'ADM_NOME', 'ADM_SENHA', 'ADM_LOGIN', 'ADM_EMAIL', 'ADM_STATUS'), array($this->date_in, $this->name, $this->password, $this->login, $this->mail_job, $this->status));
-            return 6;
+            return "sucesso_cadastro";
         }
     }
 
@@ -137,18 +137,18 @@ class User extends Person {
             if (Dbcommand::count_rows($result) > 0) {
                 $results = Dbcommand::rows($result);
                 if (Criptography::CheckBcrypt($this->password, $results['ADM_SENHA']) == FALSE) {
-                    return 12;
+                    return "erro_senha";
                 } else {
                     $this->id = $results['ADM_ID'];
                     $this->status = $results['ADM_STATUS'];
                     if ($this->status != 2) {
-                        return 3;
+                        return "usuario_inativo";
                     } else {
                         if (!isset($_SESSION)) {
                             session_start();
                             // seta configurações fuso horario e tempo limite de inatividade em segundos
-                            date_default_timezone_set("Brazil/East");
-                            $tempolimite = 3600;
+                            date_default_timezone_set("Brazil/Recife");
+                            $tempolimite = 10;
                             //fim das configurações de fusu horario e limite de inatividade
                             //aqui ta o seu script de autenticação no momento em que ele for validado você seta as configurações abaixo.
                             //seta as configurações de tempo permitido para inatividade
@@ -159,14 +159,14 @@ class User extends Person {
                         $_SESSION['usuario_logado'] = $this->getId();
                         $this->log = Criptography::BASE64(date("Y-m-d H:i:s"), 1);
                         Dbcommand::update('tb_administradores', array('ADM_LOG' => $this->log), array('ADM_ID' => $this->id));
-                        return 20;
+                        return "usuario_logado";
                     }
                 }
             } else {
-                return 2;
+                return "erro_entrada_usuario";
             }
         } else {
-            return 7;
+            return "erro_entrada_usuario";
         }
     }
 
@@ -190,7 +190,7 @@ class User extends Person {
     public function verifyAccess(){
         session_start();
         if (!isset($_SESSION['usuario_logado'])) {
-            header("location: ". Dbcommand::getServer() ."/login.php?msg=1");
+            header("location: ". Dbcommand::getServer() ."/login.php?msg=entrada_usuario");
         }else{
             $this->id = ($_SESSION['usuario_logado']);
             $registro = $_SESSION['registro'];

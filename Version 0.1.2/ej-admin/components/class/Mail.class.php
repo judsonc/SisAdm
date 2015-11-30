@@ -92,7 +92,7 @@ class Mail {
     public function setRecovery() {
         $this->mail_job = Dbcommand::post("email");
         if (!ValidationData::mail($this->mail_job)) {
-            return 18;
+            return "erro_campo";
         } else {
             $this->mail_job = Criptography::BASE64($this->mail_job, 1);
             $results = Dbcommand::select("tb_administradores", array('ADM_EMAIL' => $this->mail_job));
@@ -133,12 +133,12 @@ class Mail {
                 $mail->ClearAllRecipients(); // Limpa os destinatarios e os anexos
 
                 if ($sended) {
-                    return 16;
+                    return "sucesso_recuperacao";
                 } else {
-                    return 17;
+                    return "erro_recuperacao";
                 }
             } else {
-                return 15;
+                return "erro_email";
             }
         }
     }
@@ -177,7 +177,7 @@ class Mail {
 
         $mail->Send(); // Envia o e-mail
         $mail->ClearAllRecipients(); // Limpa os destinatarios e os anexos
-        return 6;
+        return "sucesso_cadastro";
     }
 
     /*
@@ -188,7 +188,7 @@ class Mail {
      */
     public function delete() {
         Dbcommand::delete('tb_emails', array('EM_ID' => $this->id));
-        return 10;
+        return "sucesso_deletar";
     }
 
     /*
@@ -203,7 +203,7 @@ class Mail {
           } else {
           ============     Usar depois pra botao "marcar como lido"  ======== */
         Dbcommand::update('tb_emails', array('EM_STATUS' => 0), array('EM_ID' => $this->id));
-        return 5;
+        return "sucesso_alterar_dados";
     }
 
     /*
