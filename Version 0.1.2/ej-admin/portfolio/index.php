@@ -6,12 +6,12 @@ $clients = new Album('clientes');
 /*   =============   Deletar imagem   ===============     */
 if ((int) Dbcommand::get('del') > 0 && (int) Dbcommand::get('del') <= $clients->size) {
     unlink(".." .$clients->photo[Dbcommand::get('del')-1]->getDir());  /* Deletando arquivo em "../components/img"  */
-    header("Location: index.php?msg=" .$clients->photo[Dbcommand::get('del') - 1]->delete()); /* Deletando registro do banco */
+    header("Location: ./?msg=" .$clients->photo[Dbcommand::get('del') - 1]->delete()); /* Deletando registro do banco */
 }
 
 /*   =============   Adicionar imagem   ===============     */
 if (@$_POST) {
-    header("Location: index.php?msg=" .$clients->addPhoto($user->getId()));
+    header("Location: ./?msg=" .$clients->addPhoto($user->getId()));
 }
 
 ?>

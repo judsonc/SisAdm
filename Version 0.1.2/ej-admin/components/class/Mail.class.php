@@ -4,24 +4,30 @@ require_once ('Dbcommand.class.php');
 require_once ('ValidationData.class.php');
 require_once ('PHPMailer/PHPMailerAutoload.php');
 
+/**
+ * @brief Classe Mail
+ *      é responsável por (des)criptografar todos os dados.
+ *
+ * @copyright \htmlonly<a href="https://github.com/judsonc">Judson Costa</a> e <a href="https://github.com/LeonardoJunio">Leonardo Junio</a>\endhtmlonly
+ */
 class Mail {
-    private $fromName = "Nome Exemplo";
-    private $from = "exemplo@exemplo.com";
-    private $id;
-    public $date_in;
-    public $log;
-    public $name;
-    public $mail_job;
-    public $title;
-    public $phone;
-    public $message;
-    public $status = 1;     /* Nao lido */
+    private $fromName = "Nome Exemplo";     /**< Nome do remetente */
+    private $from = "exemplo@exemplo.com"; /**< Email do remetente */
+    private $id;            /**< Identificação do link no banco de dados */
+    public $date_in;      /**< Data de criação */
+    public $log;            /**< Data de alteração */
+    public $name;        /**< Nome */
+    public $mail_job;    /**< Email profissional do usuario*/
+    public $title;          /**< Titulo da mensagem */
+    public $phone;       /**< Telefone do usuario */
+    public $message;   /**< Corpo da mensagem */
+    public $status = 1; /**< Valor padrao é 1 (Nao lido) */
 
-    /*
-     * Function setIndex()
-     *      Envia o email do usuario na index do site
-     * param void
-     * return int
+    /**
+     * @brief Function setIndex
+     *      envia o email do usuario na index do site
+     * @param void
+     * @return mensagem indicador de erro ou sucesso
      */
     public function setIndex() {
         if (@$_POST) {
@@ -33,7 +39,7 @@ class Mail {
 
             if (empty($this->name) || empty($this->mail_job) || empty($this->message) || empty($this->title)) {
                 echo "<script> window.alert('Campo vazio!!') </script>
-	                <script> window.location = 'index.php'; </script>";
+	              <script> window.location = 'index.php'; </script>";
                 die();
             }
             if (!ValidationData::name($this->name) || !ValidationData::mail($this->mail_job) || !ValidationData::text($this->message) || !ValidationData::text($this->title)) {
@@ -77,17 +83,16 @@ class Mail {
                     echo "<script> window.alert('Nao foi poss&iacute;vel enviar o e-mail,
                             mas ele podera ser visto pelo Administrador do Site.') </script>
                             <script> window.location = 'index.php'; </script>";
-                    //echo "Informacoes do erro: " . $mail->ErrorInfo;
                 }
             }
         }
     }
 
-    /*
-     * Function setRecovery()
-     *      Verifica se é possivel recuperar a senha, verificando se ja foi feito o pedido e se o email ja esta cadastrado; assim depois realiza a recuperação
-     * param void
-     * return int
+    /**
+     * @brief Function setRecovery
+     *      verifica se é possivel recuperar a senha, verificando se ja foi feito o pedido e se o email ja esta cadastrado; assim depois realiza a recuperação.
+     * @param void
+     * @return mensagem indicador de erro ou sucesso
      */
     public function setRecovery() {
         $this->mail_job = Dbcommand::post("email");
@@ -106,13 +111,13 @@ class Mail {
                     Dbcommand::insert("tb_recuperacao", array('REC_ADM', 'REC_CONFIRMACAO'), array($this->mail_job, $chave));
                 }
 
-                /* 	  ====		Setando valores 	====	 */
+                /* 	  ====      Setando valores 	====	 */
                 $link = $_SERVER['HTTP_HOST'] . "/ej-admin/recuperar/recuperar.php?utilizador=$this->mail_job&confirmacao=$chave";
                 $this->mail_job = Criptography::BASE64($this->mail_job, 0);
                 $this->title = "Recuperação de senha";
                 $this->message = 'Olá ' . $this->mail_job . ', visite este link para recuperar a senha: ' . $link . '<br><br><br>
                                     Solicitação: ' . date("d/m/Y H:i:s", strtotime(date("Y-m-d H:i:s")));
-                /*  	==========	    ==========		 */
+                /*  	==========	    ==========	 */
 
                 $mail = new PHPMailer();    /* Classe para enviar emails   */
                 $mail->IsSMTP();    /* Define que a mensagem sera SMTP     */
@@ -143,21 +148,21 @@ class Mail {
         }
     }
 
-    /*
-     * Function setSave()
-     *      Mostra informaçoes em relacao a ativacao do email
-     *      Seta Informções sobre o acesso no email e realiza funcoes do mesmo
-     * param void
-     * return int
+    /**
+     * @brief Function setSave
+     *      mostra informaçoes em relacao a ativacao do email.
+     *      Seta Informções sobre o acesso no email e realiza funcoes do mesmo.
+     * @param void
+     * @return mensagem indicador de erro ou sucesso
      */
     public function setSave() {
         /* 	  ====		Setando valores 	====	 */
         $this->title = "Conta Ativada com Sucesso";
         $this->message = "Olá " . $this->mail_job . ",<br>
-                            Sua conta foi ativada com sucesso, acesse o link para logar: <br>"
-                . $_SERVER['HTTP_HOST'] . "/ej-admin<br>
-                            Login: " . $this->name . "<br><br><br>
-                            Solicitação: " . date('d/m/Y H:i:s', strtotime(date('Y-m-d H:i:s')));
+                                    Sua conta foi ativada com sucesso, acesse o link para logar: <br>"
+                                    . $_SERVER['HTTP_HOST'] . "/ej-admin<br>
+                                    Login: " . $this->name . "<br><br><br>
+                                    Solicitação: " . date('d/m/Y H:i:s', strtotime(date('Y-m-d H:i:s')));
         /*  	==========	    ==========		 */
 
         $mail = new PHPMailer(); // Classe para enviar emails
@@ -180,22 +185,22 @@ class Mail {
         return "sucesso_cadastro";
     }
 
-    /*
-     * Function delete()
-     *      Deleta email do banco de dados
-     * param void
-     * return int
+    /**
+     * @brief Function delete
+     *      deleta email do banco de dados.
+     * @param void
+     * @return mensagem indicador de erro ou sucesso
      */
     public function delete() {
         Dbcommand::delete('tb_emails', array('EM_ID' => $this->id));
         return "sucesso_deletar";
     }
 
-    /*
-     * Function setStatus()
-     *      Seta o Statos do usuario
-     * param void
-     * return int
+    /**
+     * @brief Function setStatus
+     *      seta o status do usuario.
+     * @param void
+     * @return mensagem indicador de erro ou sucesso
      */
     public function setStatus() {
         /* if ($this->status == 1) {
@@ -206,21 +211,21 @@ class Mail {
         return "sucesso_alterar_dados";
     }
 
-    /*
-     * Function getId()
-     *      Retorna o id do usuario
-     * param void
-     * return int
+    /**
+     * @brief Function getId
+     *      retorna o id do usuario.
+     * @param void
+     * @return int
      */
     public function getId() {
         return $this->id;
     }
 
-    /*
-     * Function setId()
-     *      Armazena o id do usuario
-     * param void
-     * return int
+    /**
+     *@brief Function setId
+     *      armazena o id do usuario.
+     * @param void
+     * @return int
      */
     public function setId($id) {
         $this->id = $id;

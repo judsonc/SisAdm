@@ -1,27 +1,33 @@
 <?php
 require_once ('Photo.class.php');
 
+/**
+ * @brief Classe Album
+ *      é onde ficará todas as fotos armazenadas naquele album, sendo precisso apenas definir o nome do album.
+ *
+ * @copyright \htmlonly<a href="https://github.com/judsonc">Judson Costa</a> e <a href="https://github.com/LeonardoJunio">Leonardo Junio</a>\endhtmlonly
+ */
 class Album {
-    private $name;
-    public $photo = array();
-    public $size;
+    private $name;               /**< Nome do Album */
+    public $photo = array();  /**< Array com todas as fotos */
+    public $size;                   /**< Quantidade de fotos guardadas */
 
-    /*
-     * Function __construct()
-     *      Seta o nome do Album passado como parametro e chama o metodo get
-     * param string
-     * return void
+    /**
+     * @brief Function __construct
+     *      seta o nome do Album passado como parametro e chama o metodo get.
+     * @param name do Album a ser criado
+     * @return void
      */
     public function __construct($name) {
         $this->name = $name;
         $this->get();
     }
 
-    /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+    /**
+     * @brief Function get
+     *      seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado.
+     * @param void
+     * @return object
      */
     public function get() {
         $i = 0;
@@ -46,11 +52,11 @@ class Album {
         return $this;
     }
 
-    /*
-     * Function delete()
-     *      Deleta no banco uma foto, retornando uma mensagem de bem sucedido
-     * param void
-     * return int
+    /**
+     * @brief Function delete
+     *      deleta no banco todas as foto do album, retornando uma mensagem de sucesso.
+     * @param void
+     * @return mensagem indicador de erro ou sucesso
      */
     public function delete() {
         for ($i = 0; $i < $this->size; $i++) {
@@ -59,23 +65,20 @@ class Album {
         return "sucesso_deletar";
     }
 
-    /*
-     * Function addPhoto()
-     *      Insere no banco uma nova foto, sendo o endereço novo ou o passado como parametro
-     * param int
-     * return string
+    /**
+     * @brief Function addPhoto
+     *      insere no banco uma nova foto, sendo o endereço novo ou o passado como parametro.
+     * @param id_adm do usuario logado
+     * @return mensagem indicador de erro ou sucesso
      */
     public function addPhoto($id_adm) {
-        $path = "/ej-admin"; // Diretório da index
-        $server = "http://" . $_SERVER['HTTP_HOST'] . $path;
-
-        $name = Photo::getSendName();       /* Guarda diretorio com novo nome e envia a imagem  */
-        if (is_int($name)) { /* Verificando se eh o nome da imagem ou a mensagem de erro (inteiro)   */
-            return $name;
+        $name = Photo::getSendName();          /* Guarda diretorio com novo nome e envia a imagem */
+        if (array_key_exists('ERRO', $name)) { /* Verificando se eh o nome da imagem ou a mensagem de erro */
+            return $name['ERRO'];
         } else {
             $morephoto = new Photo();
             $morephoto->albumName = $this->name;
-            return $morephoto->set($id_adm, $server . $name);
+            return $morephoto->set($id_adm, Dbcommand::getServer() . $name);
         }
     }
 }

@@ -1,5 +1,12 @@
 <?php
+require_once ('ValidationData.class.php');
 
+/**
+ * @brief Classe Message
+ *      é responsável por mostrar as notificações que são solicitadas no decorrer do código.
+ *
+ * @copyright \htmlonly<a href="https://github.com/judsonc">Judson Costa</a> e <a href="https://github.com/LeonardoJunio">Leonardo Junio</a>\endhtmlonly
+ */
 class Message {
     private static $msg = array(
         "entrada_usuario" => "Entre com seu usuário e senha.", //1
@@ -21,7 +28,7 @@ class Message {
         "erro_recuperacao" => "Falha ao enviar email de recuperação, favor tentar novamente", //17
         "erro_campo" => "Um dos campos não está no padrão definido!", //18
         "usuario_logado" => "Redirecionar para index"
-    );
+    ); /**< Conteúdo da notificação */
     private static $type = array(
         "entrada_usuario" => "-info",
         "erro_entrada_usuario" => "-danger",
@@ -41,17 +48,17 @@ class Message {
         "sucesso_recuperacao" => "-success",
         "erro_recuperacao" => "-danger",
         "erro_campo" => "-danger"
-    );
+    );  /**< Classe do Bootstrap de acordo com o nivel da notificação */
 
-    /*
-     * Function get()
-     *      Seleciona o indice o array, retornando a mensagem
-     * param void
-     * return object
+    /**
+     * @brief Function get
+     *      retorna a string de mensagem de aviso de acordo com o indice que foi passado por GET ou, no caso especifico de usuario logado, redireciona para a index do site.
+     * @param void
+     * @return o html (tag 'div') com a mensagem de notificacao
      */
     public static function get() {
-        if (isset($_GET["msg"])) {
-            if ($_GET["msg"] == "usuario_logado") {
+        if (ValidationData::text($_GET["msg"]) && array_key_exists($_GET["msg"], self::$msg)) {
+            if ($_GET["msg"] === "usuario_logado") {
                 header("Location: ./");
             } else {
                 return '<div class="alert alert' . self::$type[$_GET["msg"]] . '">

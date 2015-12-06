@@ -62,7 +62,7 @@ include_once ("components/config.php");
                         <a href="<?php echo Dbcommand::getServer(); ?>/banner" class="list-group-item <?php echo ($active == 'banner') ? 'selected' : ''; ?>">Banners</a>
                         <a href="<?php echo Dbcommand::getServer(); ?>/quemsomos" class="list-group-item <?php echo ($active == 'quemsomos') ? 'selected' : ''; ?>">Quem Somos</a>
                         <a href="<?php echo Dbcommand::getServer(); ?>/servicos" class="list-group-item <?php echo ($active == 'servico') ? 'selected' : ''; ?>">Serviços</a>
-                        <a href="<?php echo Dbcommand::getServer(); ?>/portfolio" class="list-group-item <?php echo ($active == 'portfolio') ? 'selected' : ''; ?>">Portifólio</a>
+                        <a href="<?php echo Dbcommand::getServer(); ?>/portfolio" class="list-group-item <?php echo ($active == 'portfolio') ? 'selected' : ''; ?>">Portfólio</a>
                         <a href="<?php echo Dbcommand::getServer(); ?>/contato" class="list-group-item <?php echo ($active == 'contato') ? 'selected' : ''; ?>">Contato</a>
                         <a href="<?php echo Dbcommand::getServer(); ?>/emails" class="list-group-item <?php echo ($active == 'email') ? 'selected' : ''; ?>">Emails</a>
                         <a href="<?php echo Dbcommand::getServer(); ?>/links" class="list-group-item <?php echo ($active == 'link') ? 'selected' : ''; ?>">Links</a>

@@ -3,30 +3,36 @@ require_once ('Album.class.php');
 require_once ('Services.class.php');
 require_once ('Links.class.php');
 
+/**
+ * @brief Classe Corporation
+ *     representa toda uma corporação com suas informações.
+ *
+ * @copyright \htmlonly<a href="https://github.com/judsonc">Judson Costa</a> e <a href="https://github.com/LeonardoJunio">Leonardo Junio</a>\endhtmlonly
+ */
 class Corporation {
-    private $id;
-    private $id_adm;
-    private $name;
-    public $log;
-    public $album;
-    public $adress;
-    public $zip;
-    public $square;
-    public $city;
-    public $state;
-    public $country;
-    public $phone1;
-    public $phone2;
-    public $mail;
-    public $about;
-    public $services;
-    public $links;
+    private $id;            /**< Senha do usuário */
+    private $id_adm;    /**< Senha do usuário */
+    private $name;      /**< Senha do usuário */
+    public $log;            /**< Senha do usuário */
+    public $album;       /**< Senha do usuário */
+    public $adress;      /**< Senha do usuário */
+    public $zip;            /**< Senha do usuário */
+    public $square;      /**< Senha do usuário */
+    public $city;           /**< Senha do usuário */
+    public $state;         /**< Senha do usuário */
+    public $country;     /**< Senha do usuário */
+    public $phone1;     /**< Senha do usuário */
+    public $phone2;     /**< Senha do usuário */
+    public $mail;          /**< Senha do usuário */
+    public $about;        /**< Senha do usuário */
+    public $services;    /**< Senha do usuário */
+    public $links;         /**< Senha do usuário */
 
-    /*
-     * Function __construct()
-     *      Instancia novas classes
-     * param void
-     * return void
+    /**
+     * @brief Function __construct
+     *      instancia os objetos album, servicos e links.
+     * @param void
+     * @return void
      */
     public function __construct() {
         $this->get();
@@ -35,11 +41,11 @@ class Corporation {
         $this->links = new Links();
     }
 
-    /*
-     * Function setContact()
-     *      Seta as informaoes de contato nas suas variaveis do banco de dados
-     * param int
-     * return int
+    /**
+     * @brief Function setContact
+     *      seta as informaoes de contato nas suas variaveis do banco de dados.
+     * @param id_adm do usuario logado
+     * @return mensagem indicador de erro ou sucesso
      */
     public function setContact($id_adm) {
         $this->id_adm = $id_adm;
@@ -78,11 +84,11 @@ class Corporation {
         }
     }
 
-    /*
-     * Function setAbout()
-     *      Seta os dados em relação a informaçoes sobre a empresa
-     * param int
-     * return int
+    /**
+     * @brief Function setAbout
+     *      seta os dados em relação a informaçoes sobre a empresa.
+     * @param id da corporacao
+     * @return mensagem indicador de erro ou sucesso
      */
     public function setAbout($id) {
         $this->id_adm = $id;
@@ -97,11 +103,11 @@ class Corporation {
         }
     }
 
-    /*
-     * Function get()
-     *      Pega as informaçoes referentes á contatos
-     * param void
-     * return object
+    /**
+     * @brief Function get
+     *      pega as informaçoes referentes á contatos da corporacao.
+     * @param void
+     * @return void
      */
     public function get() {
         $result = Dbcommand::select('tb_empresa', array('ALL'), 'ORDER BY EMP_ID DESC LIMIT 1');
@@ -127,21 +133,21 @@ class Corporation {
         return $this;
     }
 
-    /*
-     * Function getName()
-     *      Retorna o nome da companhia
-     * param void
-     * return string
+    /**
+     * @brief Function getName
+     *      retorna o nome da companhia.
+     * @param void
+     * @return nome da companhia
      */
     public function getName() {
         return $this->name;
     }
 
-    /*
-     * Function setName()
-     *      Armazena o nome da empresa. Função pra ADMINISTRADOR.
-     * param string
-     * return void
+    /**
+     * @brief Function setName
+     *      armazena o nome da empresa.
+     * @param void
+     * @return void
      */
     public function setName() {
         $this->name = Dbcommand::post('name_corporation');

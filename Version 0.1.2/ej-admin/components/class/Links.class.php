@@ -1,25 +1,31 @@
 <?php
 require_once ('Link.class.php');
 
+/**
+ * @brief Classe Links
+ *      é onde ficará todos os links armazenados.
+ *
+ * @copyright \htmlonly<a href="https://github.com/judsonc">Judson Costa</a> e <a href="https://github.com/LeonardoJunio">Leonardo Junio</a>\endhtmlonly
+ */
 class Links {
-    public $link = array();
-    public $size;
+    public $link = array(); /**< Array com todas os links */
+    public $size;               /**< Quantidade de links guardados */
 
-    /*
-     * Function __construct()
-     *      Chama o metodo get
-     * param void
-     * return void
+    /**
+     * @brief Function __construct
+     *      chama o metodo get.
+     * @param void
+     * @return void
      */
     public function __construct() {
         $this->get();
     }
 
-    /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores ja descriptografado
-     * param void
-     * return object
+    /**
+     * @brief Function get
+     *      seleciona todos os campos do Banco de dados e retorna os valores ja descriptografado.
+     * @param void
+     * @return object
      */
     public function get() {
         $i = 0;
@@ -44,11 +50,11 @@ class Links {
         return $this;
     }
 
-    /*
-     * Function addLink()
-     *      Adiciona um novo link
-     * param int
-     * return object
+    /**
+     * @brief Function addLink
+     *      adiciona um novo link.
+     * @param id_adm do usuario logado
+     * @return mensagem indicador de erro ou sucesso
      */
     public function addLink($id_adm) {
         $moreLink = new Link();

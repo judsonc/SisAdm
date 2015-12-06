@@ -1,15 +1,23 @@
 <?php
-include ('Connection.class.php');
+require_once ('Connection.class.php');
 
+/**
+ * @brief Classe Dbcommand
+ *      gera todas as query SQL e já as executa, além de formatar o seu retorno da execução.
+ *      Também tem alguns outros métodos que são bem utéis.
+ * @bug O metodo Select só gera query para condicionais AND, deixando de fora os demais condicionais (OR, NAND, NOR, etc).
+ *
+ * @copyright \htmlonly<a href="https://github.com/judsonc">Judson Costa</a> e <a href="https://github.com/LeonardoJunio">Leonardo Junio</a>\endhtmlonly
+ */
 abstract class Dbcommand extends Connection {
 
-    /*
-     * Function select()
-     *      Seleciona todo o Banco de dados de acordo com as colunas e valores passados,
-     *      caso queira selecionar tudo, passa-se tudo como parametro,
+    /**
+     * @brief Function select
+     *      seleciona todo o Banco de dados de acordo com as colunas e valores passados.
+     *      Caso queira selecionar tudo, passa-se tudo como parametro,
      *      assim como demais complementos, retornando um array pronto pra ser separado
-     * param string Nome da tabela, array Dados ('Coluna' => "Valores") || string 'ALL', string Complementos (Ex: ORDER BY, LIMIT) || default = ''
-     * return array Result
+     * @param string Nome da tabela, array Dados ('Coluna' => "Valores") || string 'ALL', string Complementos (Ex: ORDER BY, LIMIT) || default = ''
+     * @return array Result
      */
     public static function select($table, $where, $more = '') {
         if ('ALL' === $where || array('ALL') === $where) {
@@ -25,11 +33,11 @@ abstract class Dbcommand extends Connection {
         return Dbcommand::execute($sql);
     }
 
-    /*
-     * Function insert()
-     *      Insere no Banco de dados
-     * param string Nome da tabela, array Colunas, array Valores
-     * return array Result
+    /**
+     * @brief Function insert
+     *      insere no Banco de dados.
+     * @param string Nome da tabela, array Colunas, array Valores
+     * @return array Result
      */
     public static function insert($table, $column, $value) {
         if (count($value) === count($column)) {
@@ -46,11 +54,11 @@ abstract class Dbcommand extends Connection {
         return Dbcommand::execute($sql);
     }
 
-    /*
-     * Function update()
-     *      Atualiza os valores no Banco de dados, precisando dos novos valores e de um condicional para especifica quais linhas serão atualizadas
-     * param string Nome da tabela, array Dados ('Coluna' => "Valores"), array Where ('Coluna' => "Valores")
-     * return array Result
+    /**
+     * @brief Function update
+     *      atualiza os valores no Banco de dados, precisando dos novos valores e de um condicional para especifica quais linhas serão atualizadas.
+     * @param string Nome da tabela, array Dados ('Coluna' => "Valores"), array Where ('Coluna' => "Valores")
+     * @return array Result
      */
     public static function update($table, $data, $where) { //where = ''
         $sql = "UPDATE $table SET";
@@ -66,11 +74,11 @@ abstract class Dbcommand extends Connection {
         return Dbcommand::execute($sql);
     }
 
-    /*
-     * Function delete()
-     *      Deleta no banco de dados
-     * param string Nome da tabela, array Where ('Coluna' => "Valores")
-     * return array Result
+    /**
+     * @brief Function delete
+     *      deleta o pedido do banco de dados.
+     * @param string Nome da tabela, array Where ('Coluna' => "Valores")
+     * @return array Result
      */
     public static function delete($table, $where) {
         $sql = "DELETE FROM $table WHERE";
@@ -81,11 +89,11 @@ abstract class Dbcommand extends Connection {
         return Dbcommand::execute($sql);
     }
 
-    /*
-     * Function anti_injection()
-     *      Limpa a string passada de injection, ou seja, barra todos os acentos
-     * param string
-     * return string
+    /**
+     * @brief Function anti_injection
+     *      limpa a string passada de injection, ou seja, barra todos os acentos.
+     * @param string
+     * @return string
      */
     private static function anti_injection($sql) {
         $mysqli = self::$conn;
@@ -93,11 +101,11 @@ abstract class Dbcommand extends Connection {
         return $sql2;
     }
 
-    /*
-     * Function post()
-     *      Trata os dados passado pelo POST daquele campo retornando uma string anti SQL injection
-     * param string
-     * return string
+    /**
+     * @brief Function post
+     *      trata os dados passado pelo POST daquele campo retornando uma string anti SQL injection.
+     * @param string
+     * @return string
      */
     public static function post($name) {
         $name = @$_POST[$name];
@@ -105,52 +113,57 @@ abstract class Dbcommand extends Connection {
         return $name;
     }
 
-    /*
-     * Function get()
-     *      Retorna os dados passado pelo GET daquele campo
-     * param string
-     * return string
+    /**
+     * @brief Function get
+     *      retorna os dados passado pelo GET daquele campo.
+     * @param string
+     * @return string
      */
     public static function get($name) {
         $name = @$_GET[$name];
         return $name;
     }
 
-    /*
-     * Function rows()
-     *      Quebra a string retornada do banco em um array
-     * param string
-     * return array
+    /**
+     * @brief Function rows
+     *      quebra a string retornada do banco em um array.
+     * @param string
+     * @return array
      */
     public static function rows($result) {
         $row = $result->fetch_assoc();
         return $row;
     }
 
-    /*
-     * Function arrays()
-     *      Quebra a string retornada do banco em um array
-     * param string
-     * return array
+    /**
+     * @brief Function arrays
+     *      quebra a string retornada do banco em um array.
+     * @param string
+     * @return array
      */
     public static function arrays($result) {
         $array = $result->fetch_array();
         return $array;
     }
 
-    /*
-     * Function count_rows()
-     *      Retorna a quantidades de elementos no array
-     * param string
-     * return int
+    /**
+     * @brief Function count_rows
+     *      retorna a quantidades de elementos no array.
+     * @param string
+     * @return int
      */
     public static function count_rows($result) {
         $number = $result->num_rows;
         return $number;
     }
 
-    /*      =====     PARA TESTES     ======      */
-    static public function getServer(){
+    /**
+    * @brief Function getServer
+    *       retorna a url do servidor que se encontra o site jumtamente com o diretório setado manualmente na propria funcao.
+    * @param void
+    * @return string
+    */
+    public static function getServer(){
         $path = "/ej-admin"; // Diretorio da index
         $server = "http://" . $_SERVER['HTTP_HOST'] . $path;
         return $server;

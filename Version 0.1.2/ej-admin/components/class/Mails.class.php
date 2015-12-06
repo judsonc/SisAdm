@@ -1,15 +1,21 @@
 <?php
 require_once ('Mail.class.php');
 
+/**
+ * @brief Classe Mails
+ *      é onde ficará  todos os emails armazenados.
+ *
+ * @copyright \htmlonly<a href="https://github.com/judsonc">Judson Costa</a> e <a href="https://github.com/LeonardoJunio">Leonardo Junio</a>\endhtmlonly
+ */
 class Mails {
-    public $mail = array();
-    public $size;
+    public $mail = array(); /**< Array com todos os emails */
+    public $size;                /**< Quantidade de emails guardados */
 
-    /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return int
+    /**
+     * @brief Function get
+     *      seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado.
+     * @param void
+     * @return void
      */
     public function get() {
         $i = 0;
@@ -34,11 +40,11 @@ class Mails {
         return $this;
     }
 
-    /*
-     * Function addMailIndex()
-     *      Retorna o email do usuario da index
-     * param void
-     * return int
+    /**
+     * @brief Function addMailIndex
+     *      retorna o email do usuario da index.
+     * @param void
+     * @return mensagem indicador de erro ou sucesso
      */
     public function addMailIndex() {
         $this->mail = new Mail();

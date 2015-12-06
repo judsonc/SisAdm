@@ -1,25 +1,31 @@
 <?php
 require_once ('Service.class.php');
 
+/**
+ * @brief Classe Services
+ *      é onde ficará todos os serviços armazenados.
+ *
+ * @copyright \htmlonly<a href="https://github.com/judsonc">Judson Costa</a> e <a href="https://github.com/LeonardoJunio">Leonardo Junio</a>\endhtmlonly
+ */
 class Services {
-    public $service = array();
-    public $size;
+    public $service = array();  /**< Array com todas os links */
+    public $size;                     /**< Quantidade de links guardados */
 
-    /*
-     * Function __construct()
-     *      Retorna um metodo
-     * param void
-     * return object
+    /**
+     * @brief Function __construct
+     *      chama o metodo get.
+     * @param void
+     * @return object
      */
     public function __construct() {
         $this->get();
     }
 
-    /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param void
-     * return object
+    /**
+     * @brief Function get
+     *      seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado.
+     * @param void
+     * @return object
      */
     public function get() {
         $i = 0;
@@ -43,11 +49,11 @@ class Services {
         return $this;
     }
 
-    /*
-     * Function addService()
-     *      Adiciona um novo serviço no banco de dados
-     * param int
-     * return object
+    /**
+     * @brief Function addService
+     *      adiciona um novo serviço no banco de dados.
+     * @param id_adm do usuario logado
+     * @return mensagem indicador de erro ou sucesso
      */
     public function addService($id_adm) {
         $moreService = new Service();

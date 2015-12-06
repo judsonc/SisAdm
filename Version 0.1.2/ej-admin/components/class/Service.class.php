@@ -4,21 +4,27 @@ require_once ('Dbcommand.class.php');
 require_once ('ValidationData.class.php');
 require_once ('Album.class.php');
 
+/**
+ * @brief Classe Service
+ *      é um serviço que tem nome, texto e logo.
+ *
+ * @copyright \htmlonly<a href="https://github.com/judsonc">Judson Costa</a> e <a href="https://github.com/LeonardoJunio">Leonardo Junio</a>\endhtmlonly
+ */
 class Service {
-    private $id;
-    private $id_adm;
-    public $date_in;
-    public $log;
-    public $name;
-    public $about;
-    public $album;
-    public $key;   /*  Nome chave do album eh o primeiro nome do servico    */
+    private $id;             /**< Identificação do serviço no banco de dados */
+    private $id_adm;     /**< Identificação do usuario logado */
+    public $date_in;       /**< Data de criação */
+    public $log;             /**< Data de alteração */
+    public $name;         /**< Nome */
+    public $about;         /**< Texto de descrição */
+    public $album;        /**< Album de fotos com a logo */
+    public $key;            /**< Nome chave do servico eh "SER_data_criacao" */
 
-    /*
-     * Function set()
-     *      Insere no Banco de dados informaoes sobre "serviços" e criptografa
-     * param int
-     * return int
+    /**
+     * @brief Function set
+     *      insere no Banco de dados informacoes sobre o "serviço" ja criptografado.
+     * @param id_adm do usuario logado
+     * @return mensagem indicador de erro ou sucesso
      */
     public function set($id_adm) {
         $this->id_adm = $id_adm;
@@ -44,11 +50,11 @@ class Service {
         }
     }
 
-    /*
-     * Function delete()
-     *      Deleta "serviços"do banco de dados
-     * param void
-     * return int
+    /**
+     * @brief Function delete
+     *      deleta "serviços"do banco de dados.
+     * @param void
+     * @return mensagem indicador de erro ou sucesso
      */
     public function delete() {
         $this->album->delete();
@@ -56,11 +62,12 @@ class Service {
         return "sucesso_deletar";
     }
 
-    /*
-     * Function update()
-     *      Seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado
-     * param int, int
-     * return int
+    /**
+     * @brief Function update
+     *      seleciona todos os campos do Banco de dados e retorna os valores das colunas ja descriptografado.
+     * @param id_adm do usuario logado
+     * @param url da imagem
+     * @return mensagem indicador de erro ou sucesso
      */
     public function update($id_adm, $url = 1) {
         $this->id_adm = $id_adm;
@@ -82,42 +89,42 @@ class Service {
         }
     }
 
-    /*
-     * Function get()
-     *      Seleciona o campos do Banco de dados e o retorna
-     * param void
-     * return object
+    /**
+     * @brief Function get
+     *     retorna o album de fotos do servico.
+     * @param void
+     * @return object
      */
     public function get() {
         $this->album = new Album($this->key);
         return $this->album;
     }
 
-    /*
-     * Function setId()
-     *      Seta o Id no banco de dados
-     * param int
-     * return void
+    /**
+     * @brief Function setId
+     *      seta o Id do servico.
+     * @param id do servico
+     * @return void
      */
     public function setId($id) {
         $this->id = $id;
     }
 
-    /*
-     * Function getId()
-     *      Retorna o Id
-     * param void
-     * return object
+    /**
+     * @brief Function getId
+     *      retorna o Id.
+     * @param void
+     * @return id do servico
      */
     public function getId() {
         return $this->id;
     }
 
-    /*
-     * Function setId_adm()
-     *      Seta o Id do administrador
-     * param int
-     * return void
+    /**
+     * @brief Function setId_adm
+     *      seta o Id do administrador.
+     * @param  id_adm do usuario logado
+     * @return void
      */
     public function setId_adm($id_adm) {
         $this->id_adm = $id_adm;

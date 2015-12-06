@@ -1,5 +1,5 @@
 <?php
-date_default_timezone_set('America/Sao_Paulo');
+date_default_timezone_set('America/Recife');
 
 // ------  Incluindo as Classes  ------
 include_once ("class/User.class.php");

@@ -1,17 +1,24 @@
 <?php
 require_once ('Person.class.php');
 require_once ('Mails.class.php');
-class User extends Person {
-    private $password;
-    private $login;
-    private $status = 2; // usuario ativo
-    public $mails;
 
-    /*
-     * Function get()
-     *      Seleciona todos os campos do Banco de dados e atribui os valores das colunas aos atributos da classe ja descriptografado
-     * param void
-     * return object
+/**
+ * @brief Classe User
+ *      é responsável por (des)criptografar todos os dados.
+ *
+ * @copyright \htmlonly<a href="https://github.com/judsonc">Judson Costa</a> e <a href="https://github.com/LeonardoJunio">Leonardo Junio</a>\endhtmlonly
+ */
+class User extends Person {
+    private $password;  /**< Senha */
+    private $login;         /**< Username */
+    private $status = 2; /**< Valor padrao eh 2 (Usuario Ativo) */
+    public $mails;          /**< Emails */
+
+    /**
+     * @brief Function get
+     *      seleciona todos os campos do Banco de dados e atribui os valores das colunas aos atributos da classe ja descriptografado.
+     * @param void
+     * @return object
      */
     public function get() {
         $result = Dbcommand::select('tb_administradores', array('ADM_ID' => $this->id));
@@ -29,11 +36,11 @@ class User extends Person {
         return $this;
     }
 
-    /*
-     * Function update()
-     *      Atualiza no Banco de dados todos os valores já criptgrofado checando se o texto nao esta vazio
-     * param void
-     * return int
+    /**
+     * @brief Function update
+     *      atualiza no Banco de dados todos os valores já criptgrofado checando se o texto nao esta vazio.
+     * @param void
+     * @return mensagem indicador de erro ou sucesso
      */
     public function update() {
         $this->name = Dbcommand::post("name_user");
@@ -65,32 +72,32 @@ class User extends Person {
         }
     }
 
-    /*
-     * Function getId()
-     *      Retorna o id do usuario
-     * param void
-     * return int
+    /**
+     * @brief Function getId
+     *      retorna o id do usuario.
+     * @param void
+     * @return id do usuario logado
      */
     public function getId() {
         return $this->id;
     }
 
-    /*
-     * Function setId()
-     *      Armazena o id do usuario
-     * param int
-     * return int
+    /**
+     * @brief Function setId
+     *      armazena o id do usuario.
+     * @param id do usuario logado
+     * @return int
      */
     public function setId($id) {
         $this->id = $id;
         return $this;
     }
 
-    /*
-     * Function set()
-     *      Insere no Banco de dados todos os valores já criptgrofado checando se o texto nao esta vazio
-     * param void
-     * return boolean, int
+    /**
+     * @brief Function set
+     *      insere no Banco de dados todos os valores já criptgrofado checando se o texto nao esta vazio.
+     * @param void
+     * @return mensagem indicador de erro ou sucesso
      */
     public function set() {
         $this->name = Dbcommand::post("name_user");
@@ -122,11 +129,12 @@ class User extends Person {
         }
     }
 
-    /*
-     * Function login()
-     *      Verifica os dados de entrada e valida caso o usuario esteja cadastrado e ativo, assim recebendo do banco os dados criptografados
-     * param void
-     * return boolean, int
+    /**
+     * @brief Function login
+     *      verifica os dados de entrada e valida caso o usuario esteja cadastrado e ativo.
+     *      Assim recebe do banco os dados cadastrado e criptografados do usuario. Ao validar o acesso, é criado uma sessão com 1800s.
+     * @param void
+     * @return mensagem indicador de erro ou sucesso
      */
     public function login() {
         $this->login = Dbcommand::post("username_user");
@@ -148,15 +156,15 @@ class User extends Person {
                             session_start();
                             // seta configurações fuso horario e tempo limite de inatividade em segundos
                             date_default_timezone_set("Brazil/Recife");
-                            $tempolimite = 10;
-                            //fim das configurações de fusu horario e limite de inatividade
-                            //aqui ta o seu script de autenticação no momento em que ele for validado você seta as configurações abaixo.
-                            //seta as configurações de tempo permitido para inatividade
+                            $tempolimite = 1800; // (s)
+                            /*fim das configurações de fuso horario e limite de inatividade
+                            aqui ta o seu script de autenticação no momento em que ele for validado você seta as configurações abaixo.
+                            seta as configurações de tempo permitido para inatividade*/
                             $_SESSION['registro'] = time(); // armazena o momento em que autenticado
                             $_SESSION['limite'] = $tempolimite; // armazena o tempo limite sem atividade
                             // fim das configurações de tempo inativo
                         }
-                        $_SESSION['usuario_logado'] = $this->getId();
+                        $_SESSION['usuario_logado'] = $this->id;
                         $this->log = Criptography::BASE64(date("Y-m-d H:i:s"), 1);
                         Dbcommand::update('tb_administradores', array('ADM_LOG' => $this->log), array('ADM_ID' => $this->id));
                         return "usuario_logado";
@@ -170,22 +178,22 @@ class User extends Person {
         }
     }
 
-    /*
-     * Function sendMail()
-     *      Verifica os dados de entrada e valida caso o estajam corretos, e em seguida guarda a mensagem no banco
-     * param void
-     * return object
+    /**
+     * @brief Function sendMail
+     *      guarda a nova mensagem no banco.
+     * @param void
+     * @return mensagem indicador de erro ou sucesso
      */
     public function sendMail() {
         $this->mails = new Mails();
         return $this->mails->addMailIndex();
     }
 
-    /*
-     * Function verifyAccess()
-     *      Verifica se o tempo de sessão do usuario expirou
-     * param void
-     * return void
+    /**
+     * @brief Function verifyAccess
+     *      verifica se o tempo de sessão do usuario expirou.
+     * @param void
+     * @return void
      */
     public function verifyAccess(){
         session_start();
@@ -204,8 +212,8 @@ class User extends Person {
             se nao ele renova o tempo e ai eh contado mais o tempo limite */
             if($segundos > $limite){
                 session_destroy();
-                echo "<script>alert('Sua sessão expirou, favor logar novamente!');
-                        location.reload()</script>";
+                echo "<script>alert('". utf8_decode("Sua sessão expirou, favor logar novamente!")."');
+                              location.reload()</script>";
                 die();  //destroi pagina para que nao carregue
             }else{
               $_SESSION['registro'] = time();

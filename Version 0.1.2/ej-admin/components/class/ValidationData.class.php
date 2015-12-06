@@ -1,23 +1,31 @@
 <?php
 
+/**
+ * @brief Classe ValidationData
+ *      é responsável por validar os dados de acordo com tipo de verificação requisitado.
+ *
+ * @copyright \htmlonly<a href="https://github.com/judsonc">Judson Costa</a> e <a href="https://github.com/LeonardoJunio">Leonardo Junio</a>\endhtmlonly
+ */
 class ValidationData {
 
-    /*
-     * Function img()
-     *      Verifica se uma das extensoes validas é a mesma extensao do arquivo
-     * param string
-     * return boolean
+    /**
+     * @brief Function img
+     *      verifica se extensao passada é uma das extensoes validas.
+     *      Padrão permitido: jpg, png, gif, jpeg, svg.
+     * @param extensão
+     * @return boolean
      */
     public static function img($ext) {
         $image = array('jpg', 'png', 'gif', 'jpeg', 'svg', 'JPG', 'PNG', 'GIF', 'JPEG', 'SVG');
         return in_array($ext, $image);
     }
 
-    /*
-     * Function cpf()
-     *      Recebe o CPF e verifica se ele é valido
-     * param string
-     * return boolean
+    /**
+     * @brief Function cpf
+     *      recebe o CPF e verifica se ele é valido.
+     *      Padrão permitido: 12345432109.
+     * @param cpf
+     * @return boolean
      */
     public static function cpf($cpf) {
         // Verifica se um número foi informado
@@ -64,43 +72,41 @@ class ValidationData {
         }
     }
 
-    /*
-     * Function date()
-     *      Avalia se a data é valida
-     * param string
-     * return boolean
+    /**
+     * @brief Function date
+     *      avalia se a data é valida.
+     *      Padrão permitido: 9/9/9999 ou 11/11/9999.
+     * @param date
+     * @return boolean
      */
     public static function date($date) {
         if (preg_match("/^\d{1,2}\/\d{1,2}\/\d{4}$/", $date)) {
-            //echo "ok";
             return true;
         } else {
-            echo "not";
             return false;
         }
     }
 
-    /*
-     * Function mail()
-     *      Avalia se o email é valido
-     * param string
-     * return boolean
+    /**
+     * @brief Function mail
+     *      avalia se o email é valido.
+     *      Padrão permitido: hhh_hh@hh.hhh.
+     * @param mail
+     * @return boolean
      */
     public static function mail($mail) {
         if (preg_match("/^([\w\-]+\.)*[\w\- ]+@([\w\- ]+\.)+([\w\-]{2,3})$/", $mail)) {
-            //echo "ok";
             return true;
         } else {
-            echo "not";
             return false;
         }
     }
 
-    /*
-     * Function password()
-     *      Avalia se a senha é forte
-     * param string
-     * return boolean
+    /**
+     * @brief Function password
+     *      avalia se a senha é de nivel forte.
+     * @param password
+     * @return boolean
      */
     public static function password($pass) {
         if (preg_match("/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $pass)) {
@@ -110,27 +116,27 @@ class ValidationData {
         }
     }
 
-    /*
-     * Function username()
-     *      Avalia se o nome do usuario é valido
-     * param string
-     * return boolean
+    /**
+     * @brief Function username
+     *      avalia se o nome do usuario é valido.
+     *      Para ser valido precisa ter no de 3 a 16 caracteres, sendo letras e numeros.
+     * @param string
+     * @return boolean
      */
     public static function username($user) {
         if (preg_match("/^[a-zA-Z0-9_.-]{3,16}$/", $user)) {
-            //echo "ok";
             return true;
         } else {
-            echo "not";
             return false;
         }
     }
 
-    /*
-     * Function phone()
-     *      Avalia se o telefone é valido
-     * param string
-     * return boolean
+    /**
+     * @brief Function phone
+     *      avalia se o telefone é valido.
+     *      Padrão permitido: +99 (99) (9)9999-9999;
+     * @param string
+     * @return boolean
      */
     public static function phone($phone) {
         if (preg_match("/^(\+[0-9][0-9]) (\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})$/", $phone)) {
@@ -140,11 +146,12 @@ class ValidationData {
         }
     }
 
-    /*
-     * Function cep()
-     *      Avalia se o CEP é valido
-     * param string
-     * return boolean
+    /**
+     * @brief Function cep
+     *      avalia se o CEP é valido.
+     *      Padrão permitido: 99999-999.
+     * @param string
+     * @return boolean
      */
     public static function cep($cep) {
         if (preg_match("/^[0-9]{5}-[0-9]{3}$/", $cep)) {
@@ -154,11 +161,12 @@ class ValidationData {
         }
     }
 
-    /*
-     * Function Name()
-     *      Analisa se o nome é valido
-     * param string
-     * return boolean
+    /**
+     * @brief Function name
+     *      analisa se o nome é valido.
+     *      Só pode conter letra e caracteres acentuados, tendo de 1 a 60 caracteres.
+     * @param string
+     * @return boolean
      */
     public static function name($name) {
         if (preg_match("/^(([a-zA-Z ]|[çáéíóúãẽĩõũàèìòùâêîôû]){1,60})$/", $name)) {
@@ -168,11 +176,12 @@ class ValidationData {
         }
     }
 
-    /*
-     * Function text()
-     *      Avalia se o texto é valido
-     * param string
-     * return boolean
+    /**
+     * @brief Function text
+     *      avalia se o texto é valido.
+     *      Ou seja, não conter tags do HTML.
+     * @param string
+     * @return boolean
      */
     public static function text($text) {
         if (preg_match("/^[^<>]{0,255}$/", $text)) {

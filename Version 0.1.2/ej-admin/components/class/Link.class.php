@@ -4,22 +4,28 @@ require_once ('Dbcommand.class.php');
 require_once ('ValidationData.class.php');
 require_once ('Album.class.php');
 
+/**
+ * @brief Classe Link
+ *      é um link que tem nome, url, texto e logo.
+ *
+ * @copyright \htmlonly<a href="https://github.com/judsonc">Judson Costa</a> e <a href="https://github.com/LeonardoJunio">Leonardo Junio</a>\endhtmlonly
+ */
 class Link {
-    private $id;
-    private $id_adm;
-    public $date_in;
-    public $log;
-    public $name;
-    public $about;
-    public $url;
-    public $album;
-    public $key;   /*  Nome chave do album eh o primeiro nome do servico    */
+    private $id;            /**< Identificação do link no banco de dados */
+    private $id_adm;    /**< Identificação do usuario logado */
+    public $date_in;      /**< Data de criação */
+    public $log;            /**< Data de alteração */
+    public $name;        /**< Nome */
+    public $about;        /**< Texto de descrição */
+    public $url;             /**< Endereço */
+    public $album;        /**< Album de fotos com a logo */
+    public $key;           /**< A palavra chave do album eh "LINK_data_criacao" */
 
-    /*
-     * Function set()
-     *      seta todos os campos no Banco de dados e criptografando-os antes
-     * param int
-     * return int
+    /**
+     * @brief Function set
+     *      seta todos os campos no Banco de dados e criptografando-os antes.
+     * @param id_adm do usuario logado
+     * @return mensagem indicador de erro ou sucesso
      */
     public function set($id_adm) {
         $this->id_adm = $id_adm;
@@ -47,11 +53,11 @@ class Link {
         }
     }
 
-     /*
-     * Function delete()
-     *      Deleta campo no banco de dados
-     * param void
-     * return int
+     /**
+     * @brief Function delete
+     *      deleta campo no banco de dados.
+     * @param void
+     * @return mensagem indicador de erro ou sucesso
      */
     public function delete() {
         $this->album->delete();
@@ -59,11 +65,12 @@ class Link {
         return "sucesso_deletar";
     }
 
-    /*
-     * Function update()
-     *       Atualiza os valores no Banco de dados e criptografa caso ainda nao esteja
-     * param int, int
-     * return int
+    /**
+     * @brief Function update
+     *       atualiza os valores no Banco de dados e criptografa caso ainda nao esteja.
+     * @param id_adm do usuario logado
+     * @param url da imagem
+     * @return mensagem indicador de erro ou sucesso
      */
     public function update($id_adm, $url = 1) {
         $this->id_adm = $id_adm;
@@ -87,42 +94,42 @@ class Link {
         }
     }
 
-    /*
-     * Function get()
-     *      Retorna os campos da classe Album
-     * param void
-     * return object
+    /**
+     * @brief Function get
+     *      retorna os campos da classe Album.
+     * @param void
+     * @return object
      */
     public function get() {
         $this->album = new Album($this->key);
         return $this->album;
     }
 
-    /*
-     * Function setId()
-     *      Seta o id
-     * param int
-     * return void
+    /**
+     * @brief Function setId
+     *      seta o id.
+     * @param id do link
+     * @return void
      */
     public function setId($id) {
         $this->id = $id;
     }
 
-    /*
-     * Function getId()
-     *      Retorna id
-     * param void
-     * return object
+    /**
+     * @brief Function getId
+     *      retorna id.
+     * @param void
+     * @return id do link
      */
     public function getId() {
         return $this->id;
     }
 
-    /*
-     * Function setId_adm()
-     *      Seta o Id do administrador
-     * param int
-     * return void
+    /**
+     * @brief Function setId_adm
+     *      seta o Id do administrador.
+     * @param id_adm do usuario logado
+     * @return void
      */
     public function setId_adm($id_adm) {
         $this->id_adm = $id_adm;
