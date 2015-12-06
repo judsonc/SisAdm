@@ -58,7 +58,7 @@ class User extends Person {
             $passtmp = Dbcommand::post("password2_user");
             if (!empty($this->password) && !empty($passtmp)) {
                 if ($this->password !== $passtmp) {
-                    return "erro_senha";
+                    return "erro_senhas";
                 } else {
                     $this->password = Criptography::Bcrypt($this->password);
                     Dbcommand::update('tb_administradores', array('ADM_NOME' => $this->name, 'ADM_LOG' => $this->log,

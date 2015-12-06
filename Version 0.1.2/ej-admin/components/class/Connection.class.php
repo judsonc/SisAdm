@@ -8,10 +8,10 @@
  */
 abstract class Connection {
     private static $hostname = 'localhost';  /**< Nome do host (padrao = 'localhost') */
-    private static $username = 'root';       /**< Nome do usuario */
-    private static $password = '';           /**< Senha do usuário */
-    private static $dbname = 'db-teste';     /**< Nome do banco de dados a ser utilizado */
-    protected static $conn;                  /**< Armazena a conexão com o banco de dados */
+    private static $username = 'root';         /**< Nome do usuario */
+    private static $password = '';                  /**< Senha do usuário */
+    private static $dbname = 'db-teste';      /**< Nome do banco de dados a ser utilizado */
+    protected static $conn;                          /**< Armazena a conexão com o banco de dados */
 
     /**
      * @brief Function connect
@@ -54,6 +54,5 @@ abstract class Connection {
      */
     public static function close() {
         mysqli_close(self::$conn);
-        unset(self::$conn);
     }
 }

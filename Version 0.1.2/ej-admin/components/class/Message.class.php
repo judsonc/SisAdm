@@ -17,7 +17,7 @@ class Message {
         "sucesso_cadastro" => "Cadastrado com sucesso", //6
         "erro_campos" => "Há campos não preenchidos", //7
         "campos_cadastrados" => "Login e/ou email já cadastrados", //8
-        "erro_senha" => "As senhas inseridas não conferem", //9
+        "erro_senhas" => "As senhas inseridas não conferem", //9
         "sucesso_deletar" => "Dados apagados com sucesso", //10
         "arquivo_invalido" => "Arquivo inválido", //11
         "erro_senha" => "Senha incorreta", //12
@@ -38,7 +38,7 @@ class Message {
         "sucesso_cadastro" => "-success",
         "erro_campos" => "-danger",
         "campos_cadastrados" => "-danger",
-        "erro_senha" => "-warning",
+        "erro_senhas" => "-warning",
         "sucesso_deletar" => "-success",
         "arquivo_invalido" => "-danger",
         "erro_senha" => "-danger",
@@ -57,7 +57,7 @@ class Message {
      * @return o html (tag 'div') com a mensagem de notificacao
      */
     public static function get() {
-        if (ValidationData::text($_GET["msg"]) && array_key_exists($_GET["msg"], self::$msg)) {
+        if (isset($_GET["msg"]) && array_key_exists($_GET["msg"], self::$msg)) {
             if ($_GET["msg"] === "usuario_logado") {
                 header("Location: ./");
             } else {

@@ -73,7 +73,7 @@ class Album {
      */
     public function addPhoto($id_adm) {
         $name = Photo::getSendName();          /* Guarda diretorio com novo nome e envia a imagem */
-        if (array_key_exists('ERRO', $name)) { /* Verificando se eh o nome da imagem ou a mensagem de erro */
+        if (is_array($name) && array_key_exists('ERRO', $name)) { /* Verificando se eh o nome da imagem ou a mensagem de erro */
             return $name['ERRO'];
         } else {
             $morephoto = new Photo();
