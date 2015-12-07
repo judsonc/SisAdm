@@ -1,5 +1,4 @@
 <?php
-$active = 'email';
 include '../header.php';
 $user->mails->get();
 

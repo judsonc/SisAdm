@@ -1,5 +1,4 @@
 <?php
-$active = 'banner';
 include_once '../header.php';
 $banner = new Album('banner');
 

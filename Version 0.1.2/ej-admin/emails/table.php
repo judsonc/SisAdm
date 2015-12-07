@@ -20,23 +20,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php for ($i = 0; $i < $user->mails->size; $i++) { ?>                            
+                            <?php for ($i = 0; $i < $user->mails->size; $i++) { ?>
                                 <tr>
                                     <td <?php echo ($user->mails->mail[$i]->status == 1) ? "style='background-color: #FF7E00'" : ''; ?> >
-                                        <?php echo $user->mails->mail[$i]->name; ?>                                        
+                                        <?php echo $user->mails->mail[$i]->name; ?>
                                     </td>
                                     <td <?php echo ($user->mails->mail[$i]->status == 1) ? "style='background-color: #FF7E00'" : ''; ?> >
                                         <?php echo $user->mails->mail[$i]->title; ?>
                                     </td>
                                     <td <?php echo ($user->mails->mail[$i]->status == 1) ? "style='background-color: #FF7E00'" : ''; ?> >
-                                        <?php echo date('d-m-Y H:i', strtotime($user->mails->mail[$i]->date_in)); ?>                                        
+                                        <?php echo date('d-m-Y H:i', strtotime($user->mails->mail[$i]->date_in)); ?>
                                     </td>
                                     <td>
                                         <a class="btn btn-primary" href="index.php?up=<?php echo $i + 1; ?>" >Ver</a>
                                         <a class="btn btn-primary" href="index.php?del=<?php echo $i + 1; ?>" >Deletar</a>
                                     </td>
                                 </tr>
-                            <?php }     
+                            <?php }
                         /*      =====     Caso nao tenha email, mostra a tabela vazia      ======      */
                             if ($user->mails->size < 1) { ?>
                                 <tr>

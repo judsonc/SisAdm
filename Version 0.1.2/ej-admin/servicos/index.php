@@ -1,5 +1,4 @@
 <?php
-$active = 'servico';
 include '../header.php';
 
 if ((int) Dbcommand::get('del') > 0 && (int) Dbcommand::get('del') <= $company->services->size) {

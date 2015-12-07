@@ -1,5 +1,4 @@
 <?php
-$active = 'contato';
 include '../header.php';
 
 if (@$_POST) {

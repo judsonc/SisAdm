@@ -1,7 +1,6 @@
 <?php
 $no_need_login = true;
 $no_visible_elements = true;
-$active = '';
 include '../header.php';
 $banner = new Album('empresa');
 

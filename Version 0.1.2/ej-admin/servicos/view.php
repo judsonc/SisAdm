@@ -1,5 +1,4 @@
 <?php
-$active = 'servico';
 include_once '../header.php';
 
 if ((int) Dbcommand::get('up') < 1 || (int) Dbcommand::get('up') > $company->services->size) {

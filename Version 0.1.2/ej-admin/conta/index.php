@@ -1,5 +1,4 @@
 <?php
-$active = '';
 include '../header.php';
 
 if(@$_POST){

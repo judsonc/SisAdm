@@ -1,4 +1,7 @@
      <footer class="footer">
+        <script src="http://code.jquery.com/jquery-2.1.4.min.js" type="text/javascript"></script>
+        <script src="<?php echo Dbcommand::getServer(); ?>/components/js/responsive.js" type="text/javascript"></script>
+        <script src="<?php echo Dbcommand::getServer(); ?>/components/ckeditor/ckeditor.js" type="text/javascript"></script>
 <!--            <div class="container">
                 <p class="pull-right"><a href="#">Voltar ao topo</a></p>
                 <p> <?php echo $company->getName(); ?> | Desenvolvido por <a href="http://www.ejectufrn.com.br" target="_blank">EJECT</a>.</p>

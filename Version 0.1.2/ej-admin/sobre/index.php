@@ -1,5 +1,4 @@
 <?php
-$active = 'quemsomos';
 include '../header.php';
 
 if (@$_POST) {
@@ -9,7 +8,7 @@ if (@$_POST) {
                 <!--  Quemsomos -->
                 <div class="col-xs-12 col-sm-10">
                     <div class="jumbotron">
-                        <a href="./"><h1>Quem Somos</h1></a>
+                        <a href="./"><h1>Sobre</h1></a>
                         <br />
                         <?php echo Message::get(); ?>
 

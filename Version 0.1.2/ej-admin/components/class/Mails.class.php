@@ -31,7 +31,7 @@ class Mails {
             $this->mail[$i]->name = $results['EM_NOME'];
             $this->mail[$i]->mail_job = $results['EM_EMAIL'];
             $this->mail[$i]->title = $results['EM_ASSUNTO'];
-            $this->mail[$i]->message = $results['EM_MENSAGEM'];
+            $this->mail[$i]->message = str_replace('\r\n', '&#13;&#10;', $results['EM_MENSAGEM']);
             $this->mail[$i]->phone = $results['EM_TEL'];
 
             $i++;

@@ -1,5 +1,4 @@
 <?php
-$active = 'portfolio';
 include '../header.php';
 $clients = new Album('clientes');
 

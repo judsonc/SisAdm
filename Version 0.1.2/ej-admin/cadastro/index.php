@@ -1,11 +1,10 @@
 <?php
 $no_need_login = true;
 $no_visible_elements = true;
-$active = '';
 include "../header.php";
 
 // Inserindo Usuário no Banco
-if ($_POST) {
+if (@$_POST) {
     header("Location: index.php?msg=".$user->set());
 }
 

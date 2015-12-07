@@ -40,7 +40,7 @@ class Services {
             $this->service[$i]->log = $results['SER_LOG'];
             $this->service[$i]->date_in = $results['SER_DATA'];
             $this->service[$i]->name = $results['SER_NOME'];
-            $this->service[$i]->about = $results['SER_SOBRE'];
+            $this->service[$i]->about = str_replace('\r\n', '&#13;&#10;', $results['SER_SOBRE']);
             $this->service[$i]->key = $results['SER_CHAVE'];
 
             $i++;

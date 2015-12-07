@@ -168,4 +168,18 @@ abstract class Dbcommand extends Connection {
         $server = "http://" . $_SERVER['HTTP_HOST'] . $path;
         return $server;
     }
+
+    /**
+    * @brief Function getTitle
+    *       retorna o titulo da página de acordo com a pasta do servidor que se encontra o arquivo.
+    * @param void
+    * @return string
+    */
+    public static function getTitle(){
+        $url = explode("\\",getcwd());
+        $path = $url[count($url) - 1];
+        $title = ($path == "ej-admin") ? "gerenciamento" : $path;
+        $title = ($title == "servicos") ? str_replace('c', 'ç', $title) : $title;
+        return $title;
+    }
 }

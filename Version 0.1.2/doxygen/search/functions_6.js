@@ -6,5 +6,6 @@ var searchData=
   ['getid',['getId',['../classLink.html#abe6fe5b48249d82edff07ef84d83aeac',1,'Link\getId()'],['../classMail.html#ac2bc4cd096e81f1ddc96be35e5aefa37',1,'Mail\getId()'],['../classPhoto.html#a334a65fef9e63fb0a8f7461a2c56f597',1,'Photo\getId()'],['../classService.html#a583f160dc411a66a74870c1dbfe3ec98',1,'Service\getId()'],['../classUser.html#a39ad6e655fcc40623b9af2203cd7afa5',1,'User\getId()']]],
   ['getname',['getName',['../classCorporation.html#a162638cbc396fd624a5d3c0545f5096e',1,'Corporation']]],
   ['getsendname',['getSendName',['../classPhoto.html#a58290fecc221c952ddd976443f5304e6',1,'Photo']]],
-  ['getserver',['getServer',['../classDbcommand.html#acde729cfe2dff506e80fd164a16362a3',1,'Dbcommand']]]
+  ['getserver',['getServer',['../classDbcommand.html#acde729cfe2dff506e80fd164a16362a3',1,'Dbcommand']]],
+  ['gettitle',['getTitle',['../classDbcommand.html#a6c8c01dfcfac94535c2bdaa36f129773',1,'Dbcommand']]]
 ];

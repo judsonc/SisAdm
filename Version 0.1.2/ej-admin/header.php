@@ -1,25 +1,22 @@
-<!DOCTYPE html>
 <?php
+header('Content-type: text/html; charset=utf-8');
 header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
-include_once ("components/config.php");
+require_once ("components/config.php");
 ?>
+<!DOCTYPE html>
 <html lang="pt_BR">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="<?php echo $company->getName(); ?>">
 
-        <title>Gerenciamento | <?php echo $company->getName(); ?></title>
-        <link rel="shortcut icon" href="<?php echo Dbcommand::getServer(); ?>/components/img/favicon.png"/>
+        <title><?php echo ucfirst(Dbcommand::getTitle()) ." | ". $company->getName(); ?></title>
+        <link rel="shortcut icon" href="<?php echo Dbcommand::getServer(); ?>/components/img/favicon.ico" type="image/x-icon"/>
 
-        <link rel="stylesheet" href="<?php echo Dbcommand::getServer(); ?>/components/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://getbootstrap.com/dist/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="<?php echo Dbcommand::getServer(); ?>/components/css/style.css">
         <link rel="stylesheet" href="<?php echo Dbcommand::getServer(); ?>/components/css/responsive.css">
-
-        <script src="<?php echo Dbcommand::getServer(); ?>/components/js/jquery.min.js"></script>
-        <script src="<?php echo Dbcommand::getServer(); ?>/components/js/responsive.js"></script>
-        <script src="<?php echo Dbcommand::getServer(); ?>/components/ckeditor/ckeditor.js"></script>
     </head>
     <body>
         <?php
@@ -58,14 +55,14 @@ include_once ("components/config.php");
                 <!--  Menu lateral -->
                 <div class="col-xs-6 col-sm-2 sidebar-offcanvas" id="sidebar" >
                     <div class="list-group">
-                        <a href="<?php echo Dbcommand::getServer(); ?>" class="list-group-item <?php echo ($active == 'inicio') ? 'selected' : ''; ?>">Início</a>
-                        <a href="<?php echo Dbcommand::getServer(); ?>/banner" class="list-group-item <?php echo ($active == 'banner') ? 'selected' : ''; ?>">Banners</a>
-                        <a href="<?php echo Dbcommand::getServer(); ?>/quemsomos" class="list-group-item <?php echo ($active == 'quemsomos') ? 'selected' : ''; ?>">Quem Somos</a>
-                        <a href="<?php echo Dbcommand::getServer(); ?>/servicos" class="list-group-item <?php echo ($active == 'servico') ? 'selected' : ''; ?>">Serviços</a>
-                        <a href="<?php echo Dbcommand::getServer(); ?>/portfolio" class="list-group-item <?php echo ($active == 'portfolio') ? 'selected' : ''; ?>">Portfólio</a>
-                        <a href="<?php echo Dbcommand::getServer(); ?>/contato" class="list-group-item <?php echo ($active == 'contato') ? 'selected' : ''; ?>">Contato</a>
-                        <a href="<?php echo Dbcommand::getServer(); ?>/emails" class="list-group-item <?php echo ($active == 'email') ? 'selected' : ''; ?>">Emails</a>
-                        <a href="<?php echo Dbcommand::getServer(); ?>/links" class="list-group-item <?php echo ($active == 'link') ? 'selected' : ''; ?>">Links</a>
+                        <a href="<?php echo Dbcommand::getServer(); ?>" class="list-group-item <?php echo (Dbcommand::getTitle() == 'gerenciamento') ? 'selected' : ''; ?>">Início</a>
+                        <a href="<?php echo Dbcommand::getServer(); ?>/banners" class="list-group-item <?php echo (Dbcommand::getTitle() == 'banners') ? 'selected' : ''; ?>">Banners</a>
+                        <a href="<?php echo Dbcommand::getServer(); ?>/sobre" class="list-group-item <?php echo (Dbcommand::getTitle() == 'sobre') ? 'selected' : ''; ?>">Sobre</a>
+                        <a href="<?php echo Dbcommand::getServer(); ?>/servicos" class="list-group-item <?php echo (Dbcommand::getTitle() == 'serviços') ? 'selected' : ''; ?>">Serviços</a>
+                        <a href="<?php echo Dbcommand::getServer(); ?>/portfolio" class="list-group-item <?php echo (Dbcommand::getTitle() == 'portfolio') ? 'selected' : ''; ?>">Portfólio</a>
+                        <a href="<?php echo Dbcommand::getServer(); ?>/contato" class="list-group-item <?php echo (Dbcommand::getTitle() == 'contato') ? 'selected' : ''; ?>">Contato</a>
+                        <a href="<?php echo Dbcommand::getServer(); ?>/emails" class="list-group-item <?php echo (Dbcommand::getTitle() == 'emails') ? 'selected' : ''; ?>">Emails</a>
+                        <a href="<?php echo Dbcommand::getServer(); ?>/links" class="list-group-item <?php echo (Dbcommand::getTitle() == 'links') ? 'selected' : ''; ?>">Links</a>
                     </div>
                 </div>
                 <!-- // Fim Menu lateral -->

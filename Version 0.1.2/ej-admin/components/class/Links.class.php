@@ -40,7 +40,7 @@ class Links {
             $this->link[$i]->log = $results['LINK_LOG'];
             $this->link[$i]->date_in = $results['LINK_DATA'];
             $this->link[$i]->name = $results['LINK_NOME'];
-            $this->link[$i]->about = $results['LINK_SOBRE'];
+            $this->link[$i]->about = str_replace('\r\n', '&#13;&#10;', $results['LINK_SOBRE']);
             $this->link[$i]->key = $results['LINK_CHAVE'];
             $this->link[$i]->url = $results['LINK_URL'];
 
